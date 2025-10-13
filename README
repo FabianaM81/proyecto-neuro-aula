@@ -1,0 +1,60 @@
+# 🧠 Proyecto NeuroAula
+
+**Aplicación educativa interactiva** desarrollada con **Node.js** y **MySQL**, enfocada en la gestión de usuarios y la exploración de estrategias de **neuroaprendizaje digital**.
+
+## 🚀 Tecnologías utilizadas
+- Node.js  
+- Express  
+- MySQL  
+- HTML, CSS y JavaScript  
+- VS Code  
+- Git & GitHub  
+
+## 📁 Estructura general del proyecto
+
+NeuroAula/
+│
+├── Backend/ # Lógica del servidor (Node.js, Express)
+│ ├── server.js # Servidor principal
+│ ├── package.json # Dependencias del backend
+│ ├── db/ # Conexión y scripts de base de datos
+│ └── routes/ # Rutas API
+│
+├── Frontend/ # Interfaz del usuario
+│ ├── index.html
+│ ├── styles/
+│ └── scripts/
+│
+├── ProyectoDB.session.sql # Estructura y datos de la base de datos
+│
+├── .gitignore
+└── README.md
+
+## ⚙️ Cómo ejecutar el proyecto
+
+1️⃣ Clonar este repositorio:  
+git clone https://github.com/FabianaM81/proyecto-neuro-aula.git
+
+2️⃣ Entrar en el directorio del proyecto:
+cd proyecto-neuro-aula
+
+3️⃣ Instalar las dependencias del backend:
+cd Backend
+npm install
+
+
+4️⃣ Configurar la base de datos en MySQL:
+Crear una base de datos llamada proyecto
+Importar el archivo ProyectoDB.session.sql
+
+5️⃣ Iniciar el servidor:
+node server.js
+
+6️⃣ Abrir el proyecto en el navegador:
+http://localhost:5000
+
+## 👩‍💻 Autora
+
+FabianaM81  
+Desarrolladora en formación, apasionada por la tecnología educativa y el aprendizaje digital.  
+Repositorio: https://github.com/FabianaM81/proyecto-neuro-aula

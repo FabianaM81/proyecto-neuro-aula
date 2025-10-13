@@ -1,0 +1,63 @@
+### Crear un nuevo usuario
+POST http://localhost:5000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Nuevo",
+  "email": "nuevo@ejemplo.com",
+  "password": "123"
+}
+
+### Obtener todos los usuarios
+GET http://localhost:5000/api/usuarios
+
+### Obtener un usuario por ID
+GET http://localhost:5000/api/usuarios/7
+
+### Actualizar un usuario existente
+PUT http://localhost:5000/api/usuarios/7
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Actualizado",
+  "email": "usuariotest@test.com",
+  "password": "nueva123"
+}
+
+### Eliminar un usuario
+DELETE http://localhost:5000/api/usuarios/5
+
+### Crear otro usuario de prueba
+POST http://localhost:5000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Prueba",
+  "email": "usuario2@test.com",
+  "password": "12345"
+}
+
+### Crear otro usuario de prueba con contraseña segura
+POST http://localhost:5000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Fabiana Hash",
+  "email": "fabiana.hash2@test.com",
+  "password": "claveSegura123"
+}
+
+### LOGIN — obtener token
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+  "email": "fabiana.hash2@test.com",
+  "password": "claveSegura123"
+}
+
+### RUTA PROTEGIDA — Ver usuario autenticado
+# Pega aquí el token que te devuelve el login anterior ↓
+GET http://localhost:5000/api/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsImVtYWlsIjoiZmFiaWFuYS5oYXNoMkB0ZXN0LmNvbSIsImlhdCI6MTc2MDA0NDQxMSwiZXhwIjoxNzYwMDQ4MDExfQ.Dow6gpVuIPJmzMkba1RAQ4DfKMW-MnQCSXHDW2UMvcw
+

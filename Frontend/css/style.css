@@ -1,0 +1,486 @@
+/* Estilos Generales */
+:root {
+    --primary-color: #0056b3; /* Azul oscuro */
+    --secondary-color: #007bff; /* Azul */
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+    --dark-bg: #0A2540; /* Azul oscuro del prototipo */
+    --white: #fff;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: #004085;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.btn-secondary:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+}
+
+/* Header y Navegación */
+header {
+    background-color: var(--white);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    height: 70px; /* Aumentar el tamaño del logo */
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Empuja los enlaces a la derecha */
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: var(--primary-color);
+    font-weight: bold;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+/* Secciones Hero */
+.hero-section {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    text-align: center;
+    padding: 100px 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-section h1 {
+    color: var(--white);
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.hero-section-small {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    text-align: center;
+    padding: 60px 0;
+}
+
+.hero-section-small h1 {
+    color: var(--white);
+    font-size: 2.5em;
+}
+
+/* Sección de Características */
+.features-section {
+    padding: 60px 0;
+    background-color: var(--light-bg);
+    text-align: center;
+}
+
+.feature-grid {
+    display: flex; /* Usar flexbox para alinear horizontalmente */
+    justify-content: center; /* Centrar los elementos */
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.feature-item {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    flex: 1 1 300px; /* Permitir que los elementos crezcan, se encojan y tengan un ancho base */
+    max-width: 350px; /* Limitar el ancho máximo para evitar que sean demasiado grandes */
+}
+
+.feature-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+/* Ajuste del tamaño de las imágenes de características */
+.feature-item img {
+    max-width: 100%; /* Asegurar que la imagen no exceda el ancho del contenedor */
+    height: auto;
+    margin-bottom: 15px;
+    width: 150px; /* Tamaño fijo para las imágenes de características */
+    height: 150px;
+    object-fit: cover; /* Asegurar que la imagen cubra el área sin distorsionarse */
+    border-radius: 8px; /* Opcional: añadir un poco de borde redondeado */
+}
+
+/* Sección de Contenido General */
+.content-section {
+    padding: 60px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.content-section .container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.content-section.reverse .container {
+    flex-direction: row-reverse;
+}
+
+.content-section .text-content {
+    flex: 1;
+}
+
+.content-section .image-content {
+    flex: 1;
+    text-align: center;
+}
+
+.content-section .image-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Estilos para la imagen principal en index.html */
+.content-section .image-content.full-width img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0; /* Eliminar border-radius si no es deseado para esta imagen */
+    box-shadow: none; /* Eliminar sombra si no es deseado */
+}
+
+.content-section ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.content-section ul li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.content-section ul li::before {
+    content: '✔️'; /* Icono de check */
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+}
+
+/* Sección de Equipo */
+.team-section {
+    padding: 60px 0;
+    background-color: var(--light-bg);
+    text-align: center;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.team-member {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--primary-color);
+}
+
+.team-member h3 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.team-member p {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Sección de Llamada a la Acción (CTA) */
+.cta-section {
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 80px 0;
+}
+
+.cta-section h2 {
+    color: var(--white);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.cta-section p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.9em;
+}
+
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: var(--white);
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        margin-top: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links li {
+        margin: 5px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5em;
+    }
+
+    .content-section .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .content-section.reverse .container {
+        flex-direction: column;
+    }
+
+    .content-section .image-content {
+        margin-top: 30px;
+    }
+
+    .feature-grid, .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Sección de Registro */
+.register-section {
+    padding: 60px 0;
+    background-color: var(--light-bg);
+    text-align: center;
+}
+
+.registration-form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.registration-form .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+}
+
+/* Sección de Login */
+.login-section {
+    padding: 60px 0;
+    background-color: var(--light-bg);
+    text-align: center;
+}
+
+.login-form {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.login-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.login-form .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+}
+

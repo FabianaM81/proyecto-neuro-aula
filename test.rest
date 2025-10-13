@@ -1,0 +1,43 @@
+
+POST http://localhost:5000/api/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "Usuario Nuevo",
+    "email": "nuevo@ejemplo.com",
+    "password": "123"
+}
+
+### 
+GET http://localhost:5000/api/usuarios
+
+###Crear otro usuario
+POST http://localhost:5000/api/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Prueba",
+  "email": "usuario2@test.com",
+  "password": "12345"
+}
+
+
+### Obtener un usuario por ID
+GET http://localhost:5000/api/usuarios/7
+
+###Actualizar un usuario
+
+PUT http://localhost:5000/api/usuarios/7
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Actualizado",
+  "email": "usuariotest@test.com",
+  "password": "nueva123"
+}
+
+### Eliminar un usuario 
+DELETE http://localhost:5000/api/usuarios/5
+
+### TEST RUTA — /api/test
+GET http://localhost:5000/api/test
