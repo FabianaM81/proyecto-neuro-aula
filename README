@@ -58,3 +58,12 @@ http://localhost:5000
 FabianaM81  
 Desarrolladora en formación, apasionada por la tecnología educativa y el aprendizaje digital.  
 Repositorio: https://github.com/FabianaM81/proyecto-neuro-aula
+
+
+## ⚠️ Nota técnica
+
+Durante el proceso de desarrollo, el repositorio presentó un inconveniente al realizar un **push forzado** desde una rama secundaria.  
+El error ocasionó la pérdida del historial de commits previos y la necesidad de **reinicializar el repositorio** para mantener la estabilidad del proyecto.  
+
+Es importante mencionar que **el trabajo en este proyecto se ha venido realizando de forma continua durante las últimas dos semanas**, con actualizaciones diarias y pruebas locales en el entorno de desarrollo.  
+La versión actual refleja el mismo avance y estructura funcional lograda durante ese proceso. (12/10/2025)
