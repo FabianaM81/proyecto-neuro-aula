@@ -5,7 +5,7 @@ const mysql = require("mysql2");
 const bcrypt = require("bcryptjs");          // Encriptación de contraseñas
 const jwt = require("jsonwebtoken");         // Tokens para autenticación
 const conexion = require("./db");            
-const auth = require("./middleware/authMiddleware"); // Middleware de autenticación
+const authMiddleware = require("./middleware/authMiddleware"); // Middleware de autenticación
 const { body, validationResult } = require("express-validator"); // Validación de datos
 
 const app = express();
@@ -95,6 +95,7 @@ app.post("/api/login", (req, res) => {
 });
 
 // Middleware para verificar token
+/*
 function verificarToken(req, res, next) {
   const authHeader = req.headers.authorization;
 
@@ -112,9 +113,10 @@ function verificarToken(req, res, next) {
     next();
   });
 }
+*/
 
 // Ruta protegida
-app.get("/api/me", verificarToken, (req, res) => {
+app.get("/api/me", authMiddleware, (req, res) => {
   conexion.query("SELECT id, nombre, email FROM usuarios WHERE id = ?", [req.user.id], (err, resultados) => {
     if (err) {
       return res.status(500).json({ error: "Error en la base de datos" });
@@ -222,6 +224,7 @@ app.post("/api/login", (req, res) => {
 });
 
 // Middleware para proteger rutas
+/*
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"] || req.headers["Authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -233,9 +236,10 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+*/
 
 // Ruta protegida de ejemplo — devuelve info del usuario autenticado
-app.get("/api/me", authenticateToken, (req, res) => {
+app.get("/api/me", authMiddleware, (req, res) => {
   const userId = req.user.id;
   conexion.query("SELECT id, nombre, email, creado_en FROM usuarios WHERE id = ?", [userId], (err, results) => {
     if (err) return res.status(500).json({ error: "Error en la base de datos" });
