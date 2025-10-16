@@ -31,7 +31,7 @@ router.post(
       (err, resultado) => {
         if (err) {
           console.error('Error en query:', err);
-          return res.status(500).json({ error: err.sqlMessage });
+          return res.status(500).json({ error: 'Error interno del servidor' });
         }
 
         res.status(201).json({
@@ -122,7 +122,7 @@ router.get('/:id', authMiddleware, (req, res) => {
   conexion.query('SELECT id, nombre, email FROM usuarios WHERE id = ?', [id], (err, resultado) => {
     if (err) {
       console.error('Error en SELECT:', err);
-      return res.status(500).json({ error: err.sqlMessage });
+      return res.status(500).json({ error: 'Error interno del servidor' });
     }
     if (resultado.length === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -156,7 +156,7 @@ router.put('/:id', authMiddleware, (req, res) => {
   conexion.query(query, updateValues, (err, resultado) => {
     if (err) {
       console.error('Error en UPDATE:', err);
-      return res.status(500).json({ error: err.sqlMessage });
+      return res.status(500).json({ error: 'Error interno del servidor' });
     }
     if (resultado.affectedRows === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -172,7 +172,7 @@ router.delete('/:id', authMiddleware, (req, res) => {
   conexion.query('DELETE FROM usuarios WHERE id = ?', [id], (err, resultado) => {
     if (err) {
       console.error('Error en DELETE:', err);
-      return res.status(500).json({ error: err.sqlMessage });
+      return res.status(500).json({ error: 'Error interno del servidor' });
     }
     if (resultado.affectedRows === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });

@@ -6,48 +6,10 @@ const mysql = require("mysql2");
 const conexion = require("./db");            
 const app = express();
 const userRoutes = require('./routes/usuarios');
+const authMiddleware = require('./middleware/authMiddleware');
 app.use(express.json());
 app.use(cors());
 app.use('/api/usuarios', userRoutes);
-
-// Crear usuario
-app.post(
-  "/api/usuarios",
-  [
-    body("nombre").notEmpty().withMessage("El nombre es obligatorio"),
-    body("email").isEmail().withMessage("Debe ser un correo válido"),
-    body("password")
-      .isLength({ min: 6 })
-      .withMessage("La contraseña debe tener al menos 6 caracteres"),
-  ],
-  (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errores: errors.array() });
-    }
-
-    const { nombre, email, password } = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 10);
-
-    conexion.query(
-      "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)",
-      [nombre, email, hashedPassword],
-      (err, resultado) => {
-        if (err) {
-          console.error("Error en query:", err);
-          return res.status(500).json({ error: err.sqlMessage });
-        }
-
-        res.json({
-          message: "Usuario creado exitosamente",
-          id: resultado.insertId,
-          nombre,
-          email,
-        });
-      }
-    );
-  }
-);
 
 
 // LOGIN de usuario
@@ -245,26 +207,6 @@ app.get("/api/me", authMiddleware, (req, res) => {
   });
 });
 // ---------- fin autenticación ----------
-
-// Ruta protegida para obtener datos del usuario autenticado
-app.get("/api/me", auth, (req, res) => {
-  conexion.query(
-    "SELECT id, nombre, email, creado_en FROM usuarios WHERE id = ?",
-    [req.user.id],
-    (err, resultado) => {
-      if (err) {
-        console.error("Error al obtener datos del usuario:", err);
-        return res.status(500).json({ error: "Error interno del servidor" });
-      }
-
-      if (resultado.length === 0) {
-        return res.status(404).json({ error: "Usuario no encontrado" });
-      }
-
-      res.json(resultado[0]);
-    }
-  );
-});
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 5000;
