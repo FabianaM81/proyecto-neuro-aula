@@ -1,16 +1,14 @@
-require("dotenv").config();                  
+require("dotenv").config(); 
+if (!process.env.JWT_SECRET) console.warn('⚠️  JWT_SECRET no definida en .env - la autenticación podría fallar');
 const express = require("express");          
 const cors = require("cors");                
 const mysql = require("mysql2");             
-const bcrypt = require("bcryptjs");          // Encriptación de contraseñas
-const jwt = require("jsonwebtoken");         // Tokens para autenticación
 const conexion = require("./db");            
-const authMiddleware = require("./middleware/authMiddleware"); // Middleware de autenticación
-const { body, validationResult } = require("express-validator"); // Validación de datos
-
 const app = express();
+const userRoutes = require('./routes/usuarios');
 app.use(express.json());
 app.use(cors());
+app.use('/api/usuarios', userRoutes);
 
 // Crear usuario
 app.post(
@@ -269,7 +267,7 @@ app.get("/api/me", auth, (req, res) => {
 });
 
 // Iniciar el servidor
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
