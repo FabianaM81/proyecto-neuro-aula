@@ -128,7 +128,6 @@ app.get("/api/me", authMiddleware, (req, res) => {
   });
 });
 
-
 // Obtener todos los usuarios
 app.get("/api/usuarios", (req, res) => {
   conexion.query("SELECT * FROM usuarios", (err, resultados) => {
