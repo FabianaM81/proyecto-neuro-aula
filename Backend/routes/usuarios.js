@@ -26,7 +26,7 @@ router.post(
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     conexion.query(
-      'INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)',
+      'INSERT INTO usuarios (nombre, correo, password) VALUES (?, ?, ?)',
       [nombre, email, hashedPassword],
       (err, resultado) => {
         if (err) {
@@ -53,7 +53,7 @@ router.post('/login', (req, res) => {
     return res.status(400).json({ error: 'Email y contraseña son requeridos' });
   }
 
-  conexion.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, resultados) => {
+  conexion.query('SELECT * FROM usuarios WHERE correo = ?', [email], (err, resultados) => {
     if (err) {
       console.error('Error en SELECT:', err);
       return res.status(500).json({ error: 'Error en el servidor' });
@@ -87,7 +87,7 @@ router.post('/login', (req, res) => {
 // Ruta protegida para obtener datos del usuario autenticado
 router.get('/me', authMiddleware, (req, res) => {
   conexion.query(
-    'SELECT id, nombre, email FROM usuarios WHERE id = ?',
+    'SELECT id, nombre, correo FROM usuarios WHERE id = ?',
     [req.user.id],
     (err, resultados) => {
       if (err) {
@@ -106,7 +106,7 @@ router.get('/me', authMiddleware, (req, res) => {
 
 // Obtener todos los usuarios (protegida, solo para administradores o roles específicos)
 router.get('/', authMiddleware, (req, res) => {
-  conexion.query('SELECT id, nombre, email FROM usuarios', (err, resultados) => {
+  conexion.query('SELECT id, nombre, correo FROM usuarios', (err, resultados) => {
     if (err) {
       console.error('Error al obtener usuarios:', err);
       return res.status(500).json({ error: 'Error en la base de datos' });
@@ -119,7 +119,7 @@ router.get('/', authMiddleware, (req, res) => {
 router.get('/:id', authMiddleware, (req, res) => {
   const { id } = req.params;
 
-  conexion.query('SELECT id, nombre, email FROM usuarios WHERE id = ?', [id], (err, resultado) => {
+  conexion.query('SELECT id, nombre, correo FROM usuarios WHERE id = ?', [id], (err, resultado) => {
     if (err) {
       console.error('Error en SELECT:', err);
       return res.status(500).json({ error: 'Error interno del servidor' });
