@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch("http://localhost:5000/api/usuarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, correo, password }),
+        body: JSON.stringify({ nombre, email, password }),
       });
 
     const data = await response.json();
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (response.ok) {  
         alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
         form.reset();
-        window.location.href = "login.html";
+        window.location.href = "../html/login.html";
         } else {
         alert("❌ Error: " + (data.error || data.message));
         }
