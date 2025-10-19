@@ -30,10 +30,15 @@ router.post(
       [nombre, email, hashedPassword],
       (err, resultado) => {
         if (err) {
-          console.error('Error en query:', err);
+        console.error('❌ Error en query:', err);
+    if (err.code === 'ER_DUP_ENTRY') {
+            console.log('⚠️ Duplicado detectado (correo existente)');
+            return res.status(400).json({ error: 'El correo ya está registrado' });
+          }
           return res.status(500).json({ error: 'Error interno del servidor' });
         }
-
+      
+    // Si todo sale bien
         res.status(201).json({
           message: 'Usuario creado exitosamente',
           id: resultado.insertId,
@@ -44,6 +49,7 @@ router.post(
     );
   }
 );
+
 
 // Ruta para el login de usuario
 router.post('/login', (req, res) => {
