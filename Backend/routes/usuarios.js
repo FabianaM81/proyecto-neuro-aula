@@ -22,18 +22,18 @@ router.post(
       return res.status(400).json({ errores: errors.array() });
     }
 
-    const { nombre, email, password } = req.body;
+    const { nombre, email, password, telefono, id_rol } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     conexion.query(
-      'INSERT INTO usuarios (nombre, correo, password) VALUES (?, ?, ?)',
-      [nombre, email, hashedPassword],
+      'INSERT INTO usuarios (nombre, correo, password, telefono, id_rol) VALUES (?, ?, ?, ?, ?)',
+      [nombre, email, hashedPassword, telefono || null, id_rol || 2],
       (err, resultado) => {
         if (err) {
         console.error('❌ Error en query:', err);
     if (err.code === 'ER_DUP_ENTRY') {
-            console.log('⚠️ Duplicado detectado (correo existente)');
-            return res.status(400).json({ error: 'El correo ya está registrado' });
+           console.log('⚠️ Duplicado detectado (correo o teléfono existente)');
+           return res.status(400).json({ error: 'El correo o el teléfono ya están registrados' });
           }
           return res.status(500).json({ error: 'Error interno del servidor' });
         }
@@ -44,6 +44,8 @@ router.post(
           id: resultado.insertId,
           nombre,
           email,
+          telefono,
+          id_rol: id_rol || 2
         });
       }
     );
@@ -85,7 +87,7 @@ router.post('/login', (req, res) => {
     res.json({
       message: 'Inicio de sesión exitoso',
       token,
-      usuario: { id: usuario.id, nombre: usuario.nombre, email: usuario.email },
+      usuario: { id: usuario.id, nombre: usuario.nombre, email: usuario.email, id_rol: usuario.id_rol },
     });
   });
 });

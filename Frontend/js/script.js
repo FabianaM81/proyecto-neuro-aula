@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
     const confirmPassword = document.getElementById("confirm-password").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const id_rol = document.getElementById("rol").value;
 
     if (password !== confirmPassword) {
     alert("Las contraseñas no coinciden");
@@ -20,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch("http://localhost:5000/api/usuarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, email, password }),
+        body: JSON.stringify({ nombre, email, password, telefono, id_rol }),
       });
 
     const data = await response.json();

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const response = await fetch("http://localhost:5000/api/usuarios/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo, password }),
+        body: JSON.stringify({ email, password }),
         });
 
         const data = await response.json();
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("token", data.token);
             localStorage.setItem("nombreUsuario", data.usuario.nombre);
             alert("✅ Inicio de sesión exitoso. Bienvenido/a, " + data.usuario.nombre);
-            window.location.href = "index.html";
+            window.location.href = "../index.html";
         } else {
             alert("❌ Error: " + (data.error || data.message));
         }

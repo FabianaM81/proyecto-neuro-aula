@@ -12,14 +12,19 @@
     <header>
     <nav class="navbar">
     <div class="container">
-        <a href="../index.html" class="logo">
-            <img src="../assets/LogoNeuroAula.png" alt="NeuroAula Logo" />
-        </a>
+       <a href="../index.html" class="logo">
+        <img src="../assets/LogoNeuroAula.png" alt="NeuroAula Logo" />
+        <span>NeuroAula</span>
+</a>
+
         <ul class="nav-links">
             <li><a href="../index.html">Inicio</a></li>
+            <li><a href="about.html">Sobre Nosotros</a></li>
+            <li><a href="services.html">Servicios</a></li>
             <li><a href="resources.html">Recursos</a></li>
             <li><a href="register.html">Registro</a></li>
             <li><a href="login.html">Login</a></li>
+            <li><a href="contact.html">Contacto</a></li>
         </ul>
     </div>
 </nav>
@@ -28,8 +33,8 @@
     <main>
         <section class="course-hero">
             <div class="container">
-                <h1>Título del curso</h1>
-                <p>Descripción breve del curso.</p>
+                <h1 id="course-title">Título del curso</h1>
+                <p id="course-description">Descripción breve del curso.</p>
             </div>
         </section>
     <section class="course-content-section">
@@ -46,18 +51,12 @@
 
         <div class="course-activities-block content-block">
             <h3>Actividades</h3>
-            <ul>
-                <li>Actividad 1</li>
-                <li>Actividad 2</li>
-            </ul>
+            <ul id="course-activities-list"></ul>
         </div>
 
         <div class="course-resources-block content-block">
             <h3>Recursos externos</h3>
-            <ul>
-                <li><a href="#">Recurso 1</a></li>
-                <li><a href="#">Recurso 2</a></li>
-            </ul>
+            <ul id="course-resources-list"></ul>
         </div>
     </div>
 </section>
