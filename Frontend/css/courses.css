@@ -1,0 +1,61 @@
+/* === Estilos complementarios para las páginas de curso === */
+.course-hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #e4f1fb, #f6f9fc);
+}
+
+.course-hero h1 {
+    font-size: 2.2rem;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.course-hero p {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.course-content-section {
+    padding: 40px 20px;
+}
+
+.content-block {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content-block h3 {
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #003366;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #00509e;
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #dcdcdc;
+}
