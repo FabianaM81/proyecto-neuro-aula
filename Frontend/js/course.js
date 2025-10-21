@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     recursos: [
         { nombre: "Orientación Andújar - Discalculia (fichas y ejercicios)", url: "https://www.orientacionandujar.es/category/discalculia/" },
-        { nombre: "Video: ¿Qué es la discalculia? (Fundación CADAH)", url: "https://www.youtube.com/watch?v=DKdc8JjSvVQ" },
+        { nombre: "Video educativo: ¿Qué es la DISCALCULIA? Todo lo que necesitas saber", url: "https://www.youtube.com/watch?v=fs19szj8L78&t=17s" },
         { nombre: "Actividades de lógica y razonamiento (Khan Academy)", url: "https://es.khanacademy.org/math" },
         { nombre: "Juegos matemáticos interactivos (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-matematicas" }
     ]
@@ -51,11 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     recursos: [
         { nombre: "Orientación Andújar - Disortografía (recursos descargables)", url: "https://www.orientacionandujar.es/category/disortografia/" },
-        { nombre: "Video educativo: Reglas ortográficas básicas", url: "https://www.youtube.com/watch?v=ANOPH5zvF3U" },
+        { nombre: "Video educativo: Reglas ortográficas básicas (Lengua en Acción)", url: "https://www.youtube.com/watch?v=QtD5qLn6gEY" },
         { nombre: "Ejercicios de ortografía interactivos (Educaplay)", url: "https://es.educaplay.com" },
         { nombre: "Juegos de palabras y escritura (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-lengua" }
     ]
-};
+}
+    };
 
     // Obtener el curso desde la URL (por ejemplo: ?id=dislexia)
     const urlParams = new URLSearchParams(window.location.search);
@@ -65,6 +66,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (curso) {
         courseTitle.textContent = curso.titulo;
         courseDescription.textContent = curso.descripcion;
+
+        const videoFrame = document.getElementById("course-video");
+        const videoResource = curso.recursos.find(r => r.url.includes("youtube"));
+        if (videoFrame && videoResource) videoFrame.src = videoResource.url.replace("watch?v=", "embed/");
+
+        const infoContent = document.getElementById("info-content-area");
+        if (infoContent) {
+        infoContent.innerHTML = `
+            <h3>Contenido informativo</h3>
+            <p>${curso.descripcion}</p>
+            <p>Este módulo ofrece estrategias y recursos seleccionados para comprender mejor las características del trastorno y su abordaje pedagógico.</p>
+        `;
+    }
 
         curso.actividades.forEach(act => {
             const li = document.createElement("li");
