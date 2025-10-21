@@ -26,15 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
         { nombre: "Actividades interactivas (Educaplay)", url: "https://es.educaplay.com" }
     ]
 },
-        discalculia: {
-            titulo: "Curso sobre Discalculia",
-            descripcion: "Material para reforzar el razonamiento lógico y numérico.",
-            actividades: ["Sumas interactivas", "Juego de fracciones"],
-            recursos: [
-                { nombre: "Artículo educativo", url: "https://edutopia.org" },
-                { nombre: "Juego de matemáticas", url: "https://cerebriti.com" }
-            ]
-        },
+       discalculia: {
+        titulo: "Discalculia: reforzando el razonamiento lógico",
+        descripcion: "Material didáctico para el desarrollo del pensamiento numérico, la comprensión de magnitudes y la resolución de problemas básicos.",
+        actividades: [
+            "Juego interactivo de sumas y restas (Cerebriti)",
+            "Ejercicio de secuencias numéricas (Educaplay)",
+            "Actividad: problemas cotidianos con apoyo visual"
+    ],
+    recursos: [
+        { nombre: "Orientación Andújar - Discalculia (fichas y ejercicios)", url: "https://www.orientacionandujar.es/category/discalculia/" },
+        { nombre: "Video: ¿Qué es la discalculia? (Fundación CADAH)", url: "https://www.youtube.com/watch?v=DKdc8JjSvVQ" },
+        { nombre: "Actividades de lógica y razonamiento (Khan Academy)", url: "https://es.khanacademy.org/math" },
+        { nombre: "Juegos matemáticos interactivos (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-matematicas" }
+    ]
+},
         disortografia: {
             titulo: "Curso sobre Disortografía",
             descripcion: "Actividades y materiales para mejorar la escritura y ortografía.",
