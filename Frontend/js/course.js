@@ -41,16 +41,21 @@ document.addEventListener("DOMContentLoaded", () => {
         { nombre: "Juegos matemáticos interactivos (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-matematicas" }
     ]
 },
-        disortografia: {
-            titulo: "Curso sobre Disortografía",
-            descripcion: "Actividades y materiales para mejorar la escritura y ortografía.",
-            actividades: ["Dictado interactivo", "Corrección de texto"],
-            recursos: [
-                { nombre: "Guía práctica", url: "https://educaplay.com" },
-                { nombre: "Video explicativo", url: "https://youtube.com" }
-            ]
-        }
-    };
+      disortografia: {
+        titulo: "Disortografía: fortaleciendo la escritura",
+        descripcion: "Actividades y materiales enfocados en la mejora de la ortografía, gramática y composición escrita.",
+        actividades: [
+            "Dictado auditivo interactivo (Educaplay)",
+            "Juego de ortografía visual (Cerebriti)",
+            "Taller de corrección de textos comunes"
+    ],
+    recursos: [
+        { nombre: "Orientación Andújar - Disortografía (recursos descargables)", url: "https://www.orientacionandujar.es/category/disortografia/" },
+        { nombre: "Video educativo: Reglas ortográficas básicas", url: "https://www.youtube.com/watch?v=ANOPH5zvF3U" },
+        { nombre: "Ejercicios de ortografía interactivos (Educaplay)", url: "https://es.educaplay.com" },
+        { nombre: "Juegos de palabras y escritura (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-lengua" }
+    ]
+};
 
     // Obtener el curso desde la URL (por ejemplo: ?id=dislexia)
     const urlParams = new URLSearchParams(window.location.search);
