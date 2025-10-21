@@ -484,3 +484,36 @@ footer .container {
     font-size: 1.1em;
 }
 
+/* ==== Estilos para los botones de cursos en resources.html ==== */
+.course-links {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.course-links h2 {
+    color: #003366;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.course-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-course {
+    background-color: #004080;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-course:hover {
+    background-color: #0059b3;
+    transform: translateY(-2px);
+}
