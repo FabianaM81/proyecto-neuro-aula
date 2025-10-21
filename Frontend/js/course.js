@@ -9,18 +9,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const activitiesList = document.getElementById("course-activities-list");
     const resourcesList = document.getElementById("course-resources-list");
 
-    // Aquí se cargará el contenido dinámico de cada curso
-    // Simulación de datos base (por si los enlaces del informe no están activos)
+    // Simulación de datos base (ya con enlaces comprobados)
     const cursos = {
-        dislexia: {
-            titulo: "Curso sobre Dislexia",
-            descripcion: "Recursos y actividades para mejorar la lectura y comprensión.",
-            actividades: ["Juego de palabras", "Ejercicio de comprensión lectora"],
-            recursos: [
-                { nombre: "Guía para docentes", url: "https://khanacademy.org" },
-                { nombre: "Video explicativo", url: "https://youtube.com" }
-            ]
-        },
+      dislexia: {
+        titulo: "Dislexia: comprensión y apoyo",
+        descripcion: "Recursos prácticos (guías, videos y actividades) para docentes y familias para apoyar la lectura y la fluidez lectora.",
+        actividades: [
+            "Juego de reconocimiento de letras (Educaplay)",
+            "Ejercicio de lectura guiada con apoyo visual",
+            "Actividad: asociación palabra-imagen (Cerebriti)"
+    ],
+    recursos: [
+        { nombre: "Orientación Andújar - Dislexia (recursos y fichas)", url: "https://www.orientacionandujar.es/category/competencia-linguistica/dislexia-2/" },
+        { nombre: "Guía para padres y educadores (Child Mind Institute, ES)", url: "https://childmind.org/es/guia/guia-para-padres-sobre-la-dislexia/" },
+        { nombre: "Video explicativo: Introducción a la dislexia", url: "https://www.youtube.com/watch?v=frKqZ3-sQUE" },
+        { nombre: "Actividades interactivas (Educaplay)", url: "https://es.educaplay.com" }
+    ]
+},
         discalculia: {
             titulo: "Curso sobre Discalculia",
             descripcion: "Material para reforzar el razonamiento lógico y numérico.",
