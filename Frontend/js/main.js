@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("token", data.token);
             localStorage.setItem("nombreUsuario", data.usuario.nombre);
             alert("✅ Inicio de sesión exitoso. Bienvenido/a, " + data.usuario.nombre);
-            window.location.href = "../index.html";
+            window.location.href = "../html/resources.html";
         } else {
             alert("❌ Error: " + (data.error || data.message));
         }

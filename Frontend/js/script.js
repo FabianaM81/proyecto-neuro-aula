@@ -2,6 +2,21 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector(".registration-form");
   if (!form) return; // evita errores si no estamos en la página de registro
+  
+  // Validación visual en tiempo real
+  const passwordInput = document.getElementById("password");
+  const confirmInput = document.getElementById("confirm-password");
+
+  confirmInput.addEventListener("input", () => {
+  const errorMsg = document.getElementById("password-error");
+  if (confirmInput.value !== passwordInput.value) {
+    confirmInput.style.borderColor = "red";
+    errorMsg.style.display = "block";
+  } else {
+    confirmInput.style.borderColor = "green";
+    errorMsg.style.display = "none";
+  }
+});
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -41,3 +56,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// --- Protección de acceso: solo usuarios logueados ---
+(function () {
+  const currentPage = window.location.pathname.split("/").pop();
+  const isPublicPage = ["login.html", "register.html", "index.html"].includes(currentPage);
+
+  if (!isPublicPage) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("⚠️ Debes iniciar sesión para acceder a esta página.");
+      window.location.href = "login.html";
+    }
+  }
+})();

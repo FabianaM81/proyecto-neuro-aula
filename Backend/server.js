@@ -2,13 +2,15 @@ require("dotenv").config();
 if (!process.env.JWT_SECRET) console.warn('⚠️  JWT_SECRET no definida en .env - la autenticación podría fallar');
 const express = require("express");          
 const cors = require("cors");                
-const mysql = require("mysql2");             
+const mysql = require("mysql2");
+const path = require("path");
 const conexion = require("./db");            
 const app = express();
 const userRoutes = require('./routes/usuarios');
 const authMiddleware = require('./middleware/authMiddleware');
 app.use(express.json());
 app.use(cors());
+app.use('/html', express.static(path.join(__dirname, '../Frontend/html')));
 app.use('/api/usuarios', userRoutes);
 
 // DESACTIVADO: login duplicado — ahora manejado desde routes/usuarios.js
@@ -41,11 +43,11 @@ app.post("/api/login", (req, res) => {
     }
 
     // Generar token
-    const token = jwt.sign(
-      { id: usuario.id, email: usuario.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+  const token = jwt.sign(
+  { id: user.id, email: user.correo },
+  process.env.JWT_SECRET,
+  { expiresIn: "1h" }
+);
 
     res.json({
       message: "Inicio de sesión exitoso",
@@ -152,36 +154,7 @@ app.delete("/api/usuarios/:id", (req, res) => {
   });
 });
 
-// Ruta para login — devuelve token si las credenciales son correctas
-app.post("/api/login", (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ error: "Email y contraseña son requeridos" });
-
-  conexion.query("SELECT * FROM usuarios WHERE correo = ?", [email], (err, results) => {
-    if (err) {
-      console.error("Error en SELECT (login):", err);
-      return res.status(500).json({ error: "Error en la base de datos" });
-    }
-    if (results.length === 0) return res.status(401).json({ error: "Credenciales inválidas" });
-
-    const user = results[0];
-    const match = bcrypt.compareSync(password, user.password);
-    if (!match) return res.status(401).json({ error: "Credenciales inválidas" });
-
-    // Generar token
-    const token = jwt.sign(
-      { id: user.id, email: user.correo },
-      process.env.JWT_SECRET || "dev_secret",
-      { expiresIn: "1h" }
-    );
-
-    res.json({
-      message: "Autenticación exitosa",
-      token,
-      user: { id: user.id, nombre: user.nombre, email: user.correo }
-    });
-  });
-});
+// 🔒 Duplicado desactivado: /api/login ahora se maneja en routes/usuarios.js
 
 // Middleware para proteger rutas
 /*

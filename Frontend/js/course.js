@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
       dislexia: {
         titulo: "Dislexia: comprensión y apoyo",
         descripcion: "Recursos prácticos (guías, videos y actividades) para docentes y familias para apoyar la lectura y la fluidez lectora.",
+        imagen: {
+        docente: "../assets/img/Dislexiaprof.jpg",
+        estudiante: "../assets/img/DislexiaEst.jpg"
+},
         actividades: [
             "Juego de reconocimiento de letras (Educaplay)",
             "Ejercicio de lectura guiada con apoyo visual",
@@ -24,11 +28,32 @@ document.addEventListener("DOMContentLoaded", () => {
         { nombre: "Guía para padres y educadores (Child Mind Institute, ES)", url: "https://childmind.org/es/guia/guia-para-padres-sobre-la-dislexia/" },
         { nombre: "Video explicativo: Introducción a la dislexia", url: "https://www.youtube.com/watch?v=frKqZ3-sQUE" },
         { nombre: "Actividades interactivas (Educaplay)", url: "https://es.educaplay.com" }
-    ]
+    ],
+    tarjetas: [
+  {
+    tipo: "video",
+    nombre: "Video explicativo: Comprender la Dislexia",
+    url: "https://www.youtube.com/watch?v=frKqZ3-sQUE"
+  },
+  {
+    tipo: "juego",
+    nombre: "Juego de reconocimiento de letras (Educaplay)",
+    url: "https://es.educaplay.com/"
+  },
+  {
+    tipo: "enlace",
+    nombre: "Orientación Andújar – Recursos para Dislexia",
+    url: "https://www.orientacionandujar.es/category/competencia-linguistica/dislexia-2/"
+  }
+]
 },
        discalculia: {
         titulo: "Discalculia: reforzando el razonamiento lógico",
         descripcion: "Material didáctico para el desarrollo del pensamiento numérico, la comprensión de magnitudes y la resolución de problemas básicos.",
+        imagen: {
+        docente: "../assets/img/Discalculiaprof.jpg",
+        estudiante: "../assets/img/DiscalculiaEst.jpg"
+},
         actividades: [
             "Juego interactivo de sumas y restas (Cerebriti)",
             "Ejercicio de secuencias numéricas (Educaplay)",
@@ -44,6 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
       disortografia: {
         titulo: "Disortografía: fortaleciendo la escritura",
         descripcion: "Actividades y materiales enfocados en la mejora de la ortografía, gramática y composición escrita.",
+        imagen: {
+        docente: "../assets/img/Disortografiaprof.jpg",
+        estudiante: "../assets/img/DisortografiaEst.jpg"
+},
         actividades: [
             "Dictado auditivo interactivo (Educaplay)",
             "Juego de ortografía visual (Cerebriti)",
@@ -66,6 +95,31 @@ document.addEventListener("DOMContentLoaded", () => {
     if (curso) {
         courseTitle.textContent = curso.titulo;
         courseDescription.textContent = curso.descripcion;
+
+        // === Generar tarjetas visuales ===
+        const visualContainer = document.getElementById("visual-resources-container");
+        if (visualContainer && curso.tarjetas) {
+        visualContainer.innerHTML = ""; // Limpia antes de agregar
+        curso.tarjetas.forEach(t => {
+        const card = document.createElement("div");
+        card.classList.add("resource-card");
+
+        let content = "";
+        if (t.tipo === "video") {
+            content = `<iframe src="${t.url.replace("watch?v=", "embed/")}" frameborder="0" allowfullscreen></iframe>`;
+        } else if (t.tipo === "imagen") {
+            content = `<img src="${t.url}" alt="${t.nombre}" />`;
+        } else if (t.tipo === "juego" || t.tipo === "enlace") {
+            content = `<a href="${t.url}" target="_blank">${t.nombre}</a>`;
+        }
+
+        card.innerHTML = `
+            <h4>${t.nombre}</h4>
+            ${content}
+        `;
+        visualContainer.appendChild(card);
+    });
+}
 
         const videoFrame = document.getElementById("course-video");
         const videoResource = curso.recursos.find(r => r.url.includes("youtube"));

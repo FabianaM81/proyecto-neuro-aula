@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Página del Curso</title>dir
+    <title>Página del Curso</title>
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/courses.css" />
@@ -14,7 +14,6 @@
     <div class="container">
        <a href="../index.html" class="logo">
         <img src="../assets/LogoNeuroAula.png" alt="NeuroAula Logo" />
-        <span>NeuroAula</span>
 </a>
 
         <ul class="nav-links">
@@ -35,6 +34,11 @@
             <div class="container">
                 <h1 id="course-title">Título del curso</h1>
                 <p id="course-description">Descripción breve del curso.</p>
+                <!-- Imagen del curso (se cargará según el rol y curso seleccionado) -->
+                <img id="course-image" 
+                 src="" 
+                 alt="Imagen del curso" 
+                 style="max-width: 100%; height: auto; border-radius: 12px; margin-top: 20px;">
             </div>
         </section>
     <section class="course-content-section">
@@ -58,6 +62,11 @@
             <h3>Recursos externos</h3>
             <ul id="course-resources-list"></ul>
         </div>
+        <!-- Contenedor para las tarjetas visuales (videos, juegos, imágenes) -->
+        <div id="visual-resources-container" class="content-block"></div>
+
+        <!-- Contenedor visual de recursos (videos, juegos, enlaces) -->
+        <div id="course-resources-cards" class="content-block"></div>
     </div>
 </section>
     </main>
