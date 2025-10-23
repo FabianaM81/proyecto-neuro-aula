@@ -13,49 +13,7 @@ app.use(cors());
 app.use('/html', express.static(path.join(__dirname, '../Frontend/html')));
 app.use('/api/usuarios', userRoutes);
 
-// DESACTIVADO: login duplicado — ahora manejado desde routes/usuarios.js
-if (false)
-// LOGIN de usuario
-app.post("/api/login", (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: "Email y contraseña son requeridos" });
-  }
-
-  // Buscar usuario en la BD
-  conexion.query("SELECT * FROM usuarios WHERE correo = ?", [email], (err, resultados) => {
-    if (err) {
-      console.error("Error en SELECT:", err);
-      return res.status(500).json({ error: "Error en el servidor" });
-    }
-
-    if (resultados.length === 0) {
-      return res.status(404).json({ error: "Usuario no encontrado" });
-    }
-
-    const usuario = resultados[0];
-
-    // Verificar contraseña
-    const passwordValida = bcrypt.compareSync(password, usuario.password);
-    if (!passwordValida) {
-      return res.status(401).json({ error: "Contraseña incorrecta" });
-    }
-
-    // Generar token
-  const token = jwt.sign(
-  { id: user.id, email: user.correo },
-  process.env.JWT_SECRET,
-  { expiresIn: "1h" }
-);
-
-    res.json({
-      message: "Inicio de sesión exitoso",
-      token,
-      usuario: { id: usuario.id, nombre: usuario.nombre, email: usuario.email },
-    });
-  });
-}); // DESACTIVADO: login duplicado — ahora manejado desde routes/usuarios.js
+// Bloque de login redundante eliminado (ahora gestionado desde routes/usuarios.js)
 
 // Middleware para verificar token
 /*
