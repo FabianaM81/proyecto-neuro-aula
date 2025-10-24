@@ -8,6 +8,8 @@ const conexion = require("./db");
 const app = express();
 const userRoutes = require('./routes/usuarios');
 const authMiddleware = require('./middleware/authMiddleware');
+const chalk = require("chalk");
+const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 app.use('/html', express.static(path.join(__dirname, '../Frontend/html')));
@@ -140,8 +142,8 @@ app.get("/api/me", authMiddleware, (req, res) => {
 });
 // ---------- fin autenticación ----------
 
-// Iniciar el servidor
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(chalk.blue.bold(`🚀 Servidor NeuroAula corriendo en http://localhost:${PORT}`));
+  console.log(chalk.green.bold("✅ Conexión exitosa con la base de datos MySQL"));
 });
+
