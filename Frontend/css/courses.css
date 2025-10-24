@@ -1,3 +1,14 @@
+/* === Paleta actualizada (hereda del estilo general) === */
+:root {
+  --primary-color: #2C3E50;   /* Azul muy oscuro, casi negro */
+  --secondary-color: #3498DB; /* Azul cielo moderno */
+  --accent-color: #2ECC71;    /* Verde esmeralda para botones o detalles */
+  --text-color: #34495E;      /* Gris oscuro para texto */
+  --light-bg: #ECF0F1;        /* Gris claro para fondos */
+  --dark-bg: #212F3C;         /* Gris azulado oscuro */
+  --white: #FFFFFF;           /* Blanco puro */
+}
+
 /* === Estilos complementarios para las páginas de curso === */
 .course-hero {
     text-align: center;
@@ -61,3 +72,18 @@
 .btn-secondary:hover {
     background-color: #dcdcdc;
 }
+
+/* === Diseño en dos columnas (para pantallas grandes) === */
+@media (min-width: 992px) {
+  .course-content-section .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* dos columnas iguales */
+    gap: 30px;
+  }
+
+  .course-content-section .content-block {
+    margin-bottom: 0; /* elimina el margen inferior cuando están en columnas */
+  }
+}
+
+/* Para pantallas pequeñas, sigue siendo una sola columna (ya está por defecto) */

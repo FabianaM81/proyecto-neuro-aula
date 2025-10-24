@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (response.ok) {  
         alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
         form.reset();
-        window.location.href = "../html/login.html";
+        window.location.href = "login.html";
         } else {
         alert("❌ Error: " + (data.error || data.message));
         }

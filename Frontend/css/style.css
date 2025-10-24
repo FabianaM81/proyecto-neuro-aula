@@ -1,20 +1,38 @@
-/* Estilos Generales */
-:root {
-    --primary-color: #0056b3; /* Azul oscuro */
-    --secondary-color: #007bff; /* Azul */
-    --text-color: #333;
-    --light-bg: #f8f9fa;
-    --dark-bg: #0A2540; /* Azul oscuro del prototipo */
-    --white: #fff;
+/* === Tipografía principal === */
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  color: #222;
+  line-height: 1.6;
 }
 
+/* === Tipografía para títulos === */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', 'Open Sans', sans-serif;
+  font-weight: 700;
+}
+
+/* Estilos Generales */
+:root {
+  --primary-color: #2C3E50;   /* Azul muy oscuro, casi negro */
+  --secondary-color: #3498DB; /* Azul cielo moderno */
+  --accent-color: #2ECC71;    /* Verde esmeralda para botones o detalles */
+  --text-color: #34495E;      /* Gris oscuro para texto */
+  --light-bg: #ECF0F1;        /* Gris claro para fondos */
+  --dark-bg: #212F3C;         /* Gris azulado oscuro */
+  --white: #FFFFFF;           /* Blanco puro */
+}
+
+/* === Tipografía principal ajustada === */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: var(--text-color);
-    line-height: 1.6;
+  font-family: 'Open Sans', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--text-color);
+  line-height: 1.8;
+  font-size: 17px;
+  font-weight: 400;
+  background-color: #fafafa; /* fondo suave opcional */
 }
 
 .container {

@@ -79,7 +79,7 @@ router.post('/login', (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: usuario.id, email: usuario.email },
+      { id: usuario.id, correo: usuario.correo },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -87,7 +87,7 @@ router.post('/login', (req, res) => {
     res.json({
       message: 'Inicio de sesión exitoso',
       token,
-      usuario: { id: usuario.id, nombre: usuario.nombre, email: usuario.email, id_rol: usuario.id_rol },
+      usuario: { id: usuario.id, nombre: usuario.nombre, correo: usuario.correo, id_rol: usuario.id_rol },
     });
   });
 });

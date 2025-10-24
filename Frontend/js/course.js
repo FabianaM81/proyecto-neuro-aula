@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const courseTitle = document.getElementById("course-title");
     const courseDescription = document.getElementById("course-description");
+    // === Mostrar imagen del curso ===
+    const courseImage = document.getElementById("course-image");
     const activitiesList = document.getElementById("course-activities-list");
     const resourcesList = document.getElementById("course-resources-list");
 
@@ -15,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
         titulo: "Dislexia: comprensión y apoyo",
         descripcion: "Recursos prácticos (guías, videos y actividades) para docentes y familias para apoyar la lectura y la fluidez lectora.",
         imagen: {
-        docente: "../assets/img/Dislexiaprof.jpg",
-        estudiante: "../assets/img/DislexiaEst.jpg"
+        docente: "../assets/cursos_media/curso_general.jpg",
+        estudiante: "../assets/cursos_media/curso_general.jpg"
 },
         actividades: [
             "Juego de reconocimiento de letras (Educaplay)",
@@ -51,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
         titulo: "Discalculia: reforzando el razonamiento lógico",
         descripcion: "Material didáctico para el desarrollo del pensamiento numérico, la comprensión de magnitudes y la resolución de problemas básicos.",
         imagen: {
-        docente: "../assets/img/Discalculiaprof.jpg",
-        estudiante: "../assets/img/DiscalculiaEst.jpg"
+        docente: "../assets/cursos_media/curso_general.jpg",
+        estudiante: "../assets/cursos_media/curso_general.jpg"
 },
         actividades: [
             "Juego interactivo de sumas y restas (Cerebriti)",
@@ -66,12 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
         { nombre: "Juegos matemáticos interactivos (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-matematicas" }
     ]
 },
-      disortografia: {
+      "disortografía": {
         titulo: "Disortografía: fortaleciendo la escritura",
         descripcion: "Actividades y materiales enfocados en la mejora de la ortografía, gramática y composición escrita.",
         imagen: {
-        docente: "../assets/img/Disortografiaprof.jpg",
-        estudiante: "../assets/img/DisortografiaEst.jpg"
+        docente: "../assets/cursos_media/curso_general.jpg",
+        estudiante: "../assets/cursos_media/curso_general.jpg"
 },
         actividades: [
             "Dictado auditivo interactivo (Educaplay)",
@@ -83,18 +85,35 @@ document.addEventListener("DOMContentLoaded", () => {
         { nombre: "Video educativo: Reglas ortográficas básicas (Lengua en Acción)", url: "https://www.youtube.com/watch?v=QtD5qLn6gEY" },
         { nombre: "Ejercicios de ortografía interactivos (Educaplay)", url: "https://es.educaplay.com" },
         { nombre: "Juegos de palabras y escritura (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-lengua" }
-    ]
-}
-    };
+        ]
+    }
+};
 
     // Obtener el curso desde la URL (por ejemplo: ?id=dislexia)
     const urlParams = new URLSearchParams(window.location.search);
     const cursoId = urlParams.get("id") || "dislexia";
     const curso = cursos[cursoId];
 
-    if (curso) {
-        courseTitle.textContent = curso.titulo;
-        courseDescription.textContent = curso.descripcion;
+if (curso) {
+    courseTitle.textContent = curso.titulo;
+    courseDescription.textContent = curso.descripcion;
+
+    // === Mostrar imagen del curso según el rol ===
+    if (courseImage && curso.imagen) {
+        // Rol actual (ajústalo según tu sistema de login o variable global)
+        const userRole = localStorage.getItem("userRole") || "docente"; 
+        // También puede ser: "estudiante"
+
+        // Asigna la imagen según el rol
+        if (userRole === "docente" && curso.imagen.docente) {
+            courseImage.src = curso.imagen.docente;
+        } else if (userRole === "estudiante" && curso.imagen.estudiante) {
+            courseImage.src = curso.imagen.estudiante;
+        } else {
+            // Si no hay imagen específica, usa una genérica
+            courseImage.src = "../assets/cursos_media/curso_general.jpg";
+        }
+    }
 
         // === Generar tarjetas visuales ===
         const visualContainer = document.getElementById("visual-resources-container");
