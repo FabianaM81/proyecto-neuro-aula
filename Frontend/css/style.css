@@ -62,31 +62,38 @@ a:hover {
 
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 24px; /* un poquito más grande para mejor toque */
+    border-radius: 8px; /* más redondeado, moderno */
     text-align: center;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
     border: none;
+    font-weight: 600;
 }
 
+.btn:hover {
+    transform: translateY(-2px); /* pequeño efecto flotante */
+}
+
+/* === Botón principal === */
 .btn-primary {
     background-color: var(--primary-color);
     color: var(--white);
 }
 
 .btn-primary:hover {
-    background-color: #004085;
+    background-color: #1A5276; /* tono intermedio elegante */
     text-decoration: none;
 }
 
+/* === Botón secundario === */
 .btn-secondary {
     background-color: var(--secondary-color);
     color: var(--white);
 }
 
 .btn-secondary:hover {
-    background-color: #0056b3;
+    background-color: #21618C;
     text-decoration: none;
 }
 
@@ -189,11 +196,17 @@ header {
 
 .feature-item {
     background-color: var(--white);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    flex: 1 1 300px; /* Permitir que los elementos crezcan, se encojan y tengan un ancho base */
-    max-width: 350px; /* Limitar el ancho máximo para evitar que sean demasiado grandes */
+    padding: 35px; /* un poco más de aire */
+    border-radius: 12px; /* más redondeado, aspecto moderno */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* sombra más visible pero suave */
+    flex: 1 1 300px; 
+    max-width: 350px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* para efecto al pasar el mouse */
+}
+
+.feature-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15); /* realce al pasar el mouse */
 }
 
 .feature-item h3 {
