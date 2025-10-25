@@ -35,13 +35,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 ],
 
-  recursos: [
-    { nombre: "Guía del Ministerio de Educación sobre Lectura Inclusiva (PDF)", url: "https://www.mineducacion.gov.co/1759/articles-360293_foto_portada.pdf" },
-    { nombre: "Video: Entendiendo la Dislexia de forma sencilla", url: "https://www.youtube.com/watch?v=Pmbp80t4flY" },
-    { nombre: "Juegos Online para Estimular la Lectoescritura", url: "https://www.educaenvivo.com/juegos-educativos-online/dislexia/" },
-    { nombre: "Video: Estrategias Pedagógicas Efectivas (Docentes)", url: "https://www.youtube.com/watch?v=pOeJ7si8uJs" },
-    { nombre: "Disfam Colombia: Recursos y Apoyo Familiar", url: "https://disfam.org/colombia/" }
-],
+ recursos: {
+    docente: [
+        { nombre: "Guía del Ministerio de Educación sobre Lectura Inclusiva (PDF)", url: "https://www.mineducacion.gov.co/1759/articles-360293_foto_portada.pdf" },
+        { nombre: "Video: Entendiendo la Dislexia de forma sencilla", url: "https://www.youtube.com/watch?v=bNjr9Y1k0SI" },
+        { nombre: "Juegos Online para Estimular la Lectoescritura", url: "https://www.educaenvivo.com/juegos-educativos-online/dislexia/" },
+        { nombre: "Video: Estrategias Pedagógicas Efectivas", url: "https://www.youtube.com/watch?v=TjcRGoEAIPg" },
+        { nombre: "Disfam Colombia: Recursos y Apoyo Familiar", url: "https://disfam.org/colombia/" }
+    ],
+    estudiante: [
+        { nombre: "Video: Entendiendo la Dislexia de forma sencilla", url: "https://www.youtube.com/watch?v=bNjr9Y1k0SI" },
+        { nombre: "Juegos Online para Estimular la Lectoescritura", url: "https://www.educaenvivo.com/juegos-educativos-online/dislexia/" }
+    ]
+},
     tarjetas: [
   {
     tipo: "video",
@@ -140,6 +146,10 @@ tarjetas: [
     const urlParams = new URLSearchParams(window.location.search);
     const cursoId = urlParams.get("id") || "dislexia";
     const curso = cursos[cursoId];
+    // === DEBUG TEMPORAL ===
+    console.log("Curso cargado:", curso);
+    console.log("Recursos:", curso.recursos);
+    console.log("Actividades:", curso.actividades);
 
 if (curso) {
     courseTitle.textContent = curso.titulo;
@@ -188,9 +198,22 @@ if (curso) {
     });
 }
 
-        const videoFrame = document.getElementById("course-video");
-        const videoResource = curso.recursos.find(r => r.url.includes("youtube"));
-        if (videoFrame && videoResource) videoFrame.src = videoResource.url.replace("watch?v=", "embed/");
+    const videoFrame = document.getElementById("course-video");
+    const userRoleVideo = localStorage.getItem("userRole") || "estudiante";
+
+// Obtener recursos según el rol para el video
+let recursosParaVideo = curso.recursos;
+if (curso.recursos && typeof curso.recursos === 'object' && !Array.isArray(curso.recursos)) {
+    recursosParaVideo = curso.recursos[userRoleVideo] || curso.recursos.estudiante || [];
+}
+
+// Buscar el primer video de YouTube
+if (Array.isArray(recursosParaVideo)) {
+    const videoResource = recursosParaVideo.find(r => r.url && r.url.includes("youtube"));
+    if (videoFrame && videoResource) {
+        videoFrame.src = videoResource.url.replace("watch?v=", "embed/");
+    }
+}
 
     const infoContent = document.getElementById("info-content-area");
     if (infoContent) {
@@ -228,14 +251,25 @@ if (curso.actividades) {
     });
 }
 
-       curso.recursos.forEach(r => {
-            const li = document.createElement("li");
-            const a = document.createElement("a");
-            a.href = r.url;
-            a.textContent = r.nombre;
-            a.target = "_blank";
-            li.appendChild(a);
-            resourcesList.appendChild(li);
-        });
-    }
+// === Renderizar recursos según rol ===
+const userRole = localStorage.getItem("userRole") || "estudiante";
+let recursosActuales = curso.recursos;
+
+// Si recursos está separado por rol, obtener el array correspondiente
+if (curso.recursos && typeof curso.recursos === 'object' && !Array.isArray(curso.recursos)) {
+    recursosActuales = curso.recursos[userRole] || curso.recursos.estudiante || [];
+}
+
+if (recursosActuales && Array.isArray(recursosActuales)) {
+    recursosActuales.forEach(r => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = r.url;
+        a.textContent = r.nombre;
+        a.target = "_blank";
+        li.appendChild(a);
+        resourcesList.appendChild(li);
+    });
+}
+    } 
 });
