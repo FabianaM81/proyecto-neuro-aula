@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("nombreUsuario", data.usuario.nombre);
+            localStorage.setItem("userRole", data.usuario.id_rol === 1 ? "docente" : "estudiante");
             alert("✅ Inicio de sesión exitoso. Bienvenido/a, " + data.usuario.nombre);
             window.location.href = "../html/resources.html";
         } else {

@@ -48,12 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { nombre: "Juegos Online para Estimular la Lectoescritura", url: "https://www.educaenvivo.com/juegos-educativos-online/dislexia/" }
     ]
 },
-    tarjetas: [
-  {
-    tipo: "video",
-    nombre: "Video explicativo: Comprender la Dislexia",
-    url: "https://www.youtube.com/watch?v=frKqZ3-sQUE"
-  },
+tarjetas: [
   {
     tipo: "juego",
     nombre: "Juego de reconocimiento de letras (Educaplay)",
@@ -63,6 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
     tipo: "enlace",
     nombre: "Orientación Andújar – Recursos para Dislexia",
     url: "https://www.orientacionandujar.es/category/competencia-linguistica/dislexia-2/"
+  },
+  {
+    tipo: "video",
+    nombre: "Video explicativo: Comprender la Dislexia",
+    url: "https://www.youtube.com/watch?v=frKqZ3-sQUE"
   }
 ]
 },
@@ -173,13 +173,18 @@ if (curso) {
         }
     }
 
-        // === Generar tarjetas visuales ===
+       // === Generar tarjetas visuales ===
         const visualContainer = document.getElementById("visual-resources-container");
         if (visualContainer && curso.tarjetas) {
-        visualContainer.innerHTML = ""; // Limpia antes de agregar
-        curso.tarjetas.forEach(t => {
+        visualContainer.innerHTML = ""; 
+    
+        curso.tarjetas.forEach((t, index) => {
         const card = document.createElement("div");
         card.classList.add("resource-card");
+        
+        if (index === 2) {
+            card.classList.add("full-width-card");
+        }
 
         let content = "";
         if (t.tipo === "video") {
