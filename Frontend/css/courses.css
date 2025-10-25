@@ -86,4 +86,44 @@
   }
 }
 
+/* Breadcrumbs */
+.breadcrumbs {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.breadcrumbs a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: #333;
+    font-weight: 500;
+}
+
+/* Botón de regreso */
+.btn-back {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #e0e0e0;
+    transform: translateX(-3px);
+}
+
 /* Para pantallas pequeñas, sigue siendo una sola columna (ya está por defecto) */

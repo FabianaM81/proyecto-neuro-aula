@@ -16,21 +16,22 @@ document.addEventListener("DOMContentLoaded", () => {
       dislexia: {
         titulo: "Dislexia: comprensión y apoyo",
         descripcion: "Recursos prácticos (guías, videos y actividades) para docentes y familias para apoyar la lectura y la fluidez lectora.",
-        imagen: {
-        docente: "../assets/cursos_media/curso_general.jpg",
-        estudiante: "../assets/cursos_media/curso_general.jpg"
+    imagen: {
+    docente: "../assets/cursos_media/dislexia_docente.jpg",
+    estudiante: "../assets/cursos_media/dislexia_estudiante.jpg"
 },
         actividades: [
             "Juego de reconocimiento de letras (Educaplay)",
             "Ejercicio de lectura guiada con apoyo visual",
             "Actividad: asociación palabra-imagen (Cerebriti)"
     ],
-    recursos: [
-        { nombre: "Orientación Andújar - Dislexia (recursos y fichas)", url: "https://www.orientacionandujar.es/category/competencia-linguistica/dislexia-2/" },
-        { nombre: "Guía para padres y educadores (Child Mind Institute, ES)", url: "https://childmind.org/es/guia/guia-para-padres-sobre-la-dislexia/" },
-        { nombre: "Video explicativo: Introducción a la dislexia", url: "https://www.youtube.com/watch?v=frKqZ3-sQUE" },
-        { nombre: "Actividades interactivas (Educaplay)", url: "https://es.educaplay.com" }
-    ],
+  recursos: [
+    { nombre: "Guía del Ministerio de Educación sobre Lectura Inclusiva (PDF)", url: "https://www.mineducacion.gov.co/1759/articles-360293_foto_portada.pdf" },
+    { nombre: "Video: Entendiendo la Dislexia de forma sencilla", url: "https://www.youtube.com/watch?v=Pmbp80t4flY" },
+    { nombre: "Juegos Online para Estimular la Lectoescritura", url: "https://www.educaenvivo.com/juegos-educativos-online/dislexia/" },
+    { nombre: "Video: Estrategias Pedagógicas Efectivas (Docentes)", url: "https://www.youtube.com/watch?v=pOeJ7si8uJs" },
+    { nombre: "Disfam Colombia: Recursos y Apoyo Familiar", url: "https://disfam.org/colombia/" }
+],
     tarjetas: [
   {
     tipo: "video",
@@ -52,28 +53,28 @@ document.addEventListener("DOMContentLoaded", () => {
        discalculia: {
         titulo: "Discalculia: reforzando el razonamiento lógico",
         descripcion: "Material didáctico para el desarrollo del pensamiento numérico, la comprensión de magnitudes y la resolución de problemas básicos.",
-        imagen: {
-        docente: "../assets/cursos_media/curso_general.jpg",
-        estudiante: "../assets/cursos_media/curso_general.jpg"
+    imagen: {
+    docente: "../assets/cursos_media/discalculia_docente.jpg",
+    estudiante: "../assets/cursos_media/discalculia_estudiante.jpg"
 },
         actividades: [
             "Juego interactivo de sumas y restas (Cerebriti)",
             "Ejercicio de secuencias numéricas (Educaplay)",
             "Actividad: problemas cotidianos con apoyo visual"
     ],
-    recursos: [
-        { nombre: "Orientación Andújar - Discalculia (fichas y ejercicios)", url: "https://www.orientacionandujar.es/category/discalculia/" },
-        { nombre: "Video educativo: ¿Qué es la DISCALCULIA? Todo lo que necesitas saber", url: "https://www.youtube.com/watch?v=fs19szj8L78&t=17s" },
-        { nombre: "Actividades de lógica y razonamiento (Khan Academy)", url: "https://es.khanacademy.org/math" },
-        { nombre: "Juegos matemáticos interactivos (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-matematicas" }
-    ]
+  recursos: [
+    { nombre: "Discalculia: La dificultad para aprender matemáticas", url: "https://www.infobae.com/educacion/2024/03/13/discalculia-la-dificultad-para-que-los-ninos-ninas-y-jovenes-aprendan-matematicas-como-abordarla-en-el-aula/" },
+    { nombre: "Dislexia y Discalculia: Diferencias y similitudes", url: "https://universidadeuropea.com/blog/dislexia-discalculia/" },
+    { nombre: "Video: Estrategias para abordar la Discalculia (Docentes)", url: "https://www.youtube.com/watch?v=p7nER_3lJbo" },
+    { nombre: "Libros sobre la Discalculia", url: "https://sololibros.org/libros-sobre-la-discalculia/" }
+]
 },
       "disortografía": {
         titulo: "Disortografía: fortaleciendo la escritura",
         descripcion: "Actividades y materiales enfocados en la mejora de la ortografía, gramática y composición escrita.",
-        imagen: {
-        docente: "../assets/cursos_media/curso_general.jpg",
-        estudiante: "../assets/cursos_media/curso_general.jpg"
+    imagen: {
+    docente: "../assets/cursos_media/disortografia_docente.jpg",
+    estudiante: "../assets/cursos_media/disortografia_estudiante.jpg"
 },
         actividades: [
             "Dictado auditivo interactivo (Educaplay)",
@@ -81,13 +82,14 @@ document.addEventListener("DOMContentLoaded", () => {
             "Taller de corrección de textos comunes"
     ],
     recursos: [
-        { nombre: "Orientación Andújar - Disortografía (recursos descargables)", url: "https://www.orientacionandujar.es/category/disortografia/" },
-        { nombre: "Video educativo: Reglas ortográficas básicas (Lengua en Acción)", url: "https://www.youtube.com/watch?v=QtD5qLn6gEY" },
-        { nombre: "Ejercicios de ortografía interactivos (Educaplay)", url: "https://es.educaplay.com" },
-        { nombre: "Juegos de palabras y escritura (Cerebriti)", url: "https://www.cerebriti.com/juegos-de-lengua" }
-        ]
-    }
-};
+    { nombre: "Video: ¿Qué es la Disortografía?", url: "https://www.youtube.com/watch?v=ipxkT9GrLHE" },
+    { nombre: "Video: Estrategias para mejorar la ortografía", url: "https://www.youtube.com/watch?v=teKVYaUgHHs" },
+    { nombre: "Video: Abordaje pedagógico de la Disortografía (Docentes)", url: "https://www.youtube.com/watch?v=vBJDibdziqk" },
+    { nombre: "Orientación Andújar - Disortografía (recursos descargables)", url: "https://www.orientacionandujar.es/category/disortografia/" }
+]
+}
+    };
+
 
     // Obtener el curso desde la URL (por ejemplo: ?id=dislexia)
     const urlParams = new URLSearchParams(window.location.search);
@@ -97,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 if (curso) {
     courseTitle.textContent = curso.titulo;
     courseDescription.textContent = curso.descripcion;
+    // document.getElementById("course-breadcrumb").textContent = curso.titulo;
 
     // === Mostrar imagen del curso según el rol ===
     if (courseImage && curso.imagen) {
@@ -152,14 +155,13 @@ if (curso) {
             <p>Este módulo ofrece estrategias y recursos seleccionados para comprender mejor las características del trastorno y su abordaje pedagógico.</p>
         `;
     }
-
         curso.actividades.forEach(act => {
             const li = document.createElement("li");
             li.textContent = act;
             activitiesList.appendChild(li);
         });
 
-        curso.recursos.forEach(r => {
+       curso.recursos.forEach(r => {
             const li = document.createElement("li");
             const a = document.createElement("a");
             a.href = r.url;
