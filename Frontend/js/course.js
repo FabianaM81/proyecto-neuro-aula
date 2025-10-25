@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cursos = {
       dislexia: {
         titulo: "Dislexia: comprensión y apoyo",
-        descripcion: "Recursos prácticos (guías, videos y actividades) para docentes y familias para apoyar la lectura y la fluidez lectora.",
+        descripcion: "Recursos prácticos guías, videos y actividades para docentes y familias para apoyar la lectura y la fluidez lectora.",
     imagen: {
     docente: "../assets/cursos_media/dislexia_docente.jpg",
     estudiante: "../assets/cursos_media/dislexia_estudiante.jpg"
@@ -67,9 +67,27 @@ document.addEventListener("DOMContentLoaded", () => {
     { nombre: "Dislexia y Discalculia: Diferencias y similitudes", url: "https://universidadeuropea.com/blog/dislexia-discalculia/" },
     { nombre: "Video: Estrategias para abordar la Discalculia (Docentes)", url: "https://www.youtube.com/watch?v=p7nER_3lJbo" },
     { nombre: "Libros sobre la Discalculia", url: "https://sololibros.org/libros-sobre-la-discalculia/" }
+],
+
+tarjetas: [
+  {
+    tipo: "video",
+    nombre: "Video explicativo: Diagnóstico e Intervención",
+    url: "https://www.youtube.com/watch?v=p7nER_3lJbo"
+  },
+  {
+    tipo: "juego",
+    nombre: "Juego interactivo de sumas y restas (Cerebriti)",
+    url: "https://www.cerebriti.com/juegos-de-matematicas"
+  },
+  {
+    tipo: "enlace",
+    nombre: "Técnicas y Recursos para la enseñanza (PDF)",
+    url: "https://universidadeuropea.com/blog/dislexia-discalculia/"
+  }
 ]
 },
-      "disortografía": {
+      disortografia: {
         titulo: "Disortografía: fortaleciendo la escritura",
         descripcion: "Actividades y materiales enfocados en la mejora de la ortografía, gramática y composición escrita.",
     imagen: {
@@ -86,10 +104,27 @@ document.addEventListener("DOMContentLoaded", () => {
     { nombre: "Video: Estrategias para mejorar la ortografía", url: "https://www.youtube.com/watch?v=teKVYaUgHHs" },
     { nombre: "Video: Abordaje pedagógico de la Disortografía (Docentes)", url: "https://www.youtube.com/watch?v=vBJDibdziqk" },
     { nombre: "Orientación Andújar - Disortografía (recursos descargables)", url: "https://www.orientacionandujar.es/category/disortografia/" }
+
+],
+tarjetas: [
+  {
+    tipo: "video",
+    nombre: "Video explicativo: ¿Qué es la Disortografía?",
+    url: "https://www.youtube.com/watch?v=ipxkT9GrLHE"
+  },
+  {
+    tipo: "juego",
+    nombre: "Dictado auditivo interactivo (Educaplay)",
+    url: "https://es.educaplay.com/"
+  },
+  {
+    tipo: "enlace",
+    nombre: "Orientación Andújar - Recursos descargables",
+    url: "https://www.orientacionandujar.es/category/disortografia/"
+  }
 ]
 }
     };
-
 
     // Obtener el curso desde la URL (por ejemplo: ?id=dislexia)
     const urlParams = new URLSearchParams(window.location.search);
@@ -104,7 +139,7 @@ if (curso) {
     // === Mostrar imagen del curso según el rol ===
     if (courseImage && curso.imagen) {
         // Rol actual (ajústalo según tu sistema de login o variable global)
-        const userRole = localStorage.getItem("userRole") || "docente"; 
+        const userRole = localStorage.getItem("userRole") || "estudiante"; 
         // También puede ser: "estudiante"
 
         // Asigna la imagen según el rol
@@ -147,14 +182,25 @@ if (curso) {
         const videoResource = curso.recursos.find(r => r.url.includes("youtube"));
         if (videoFrame && videoResource) videoFrame.src = videoResource.url.replace("watch?v=", "embed/");
 
-        const infoContent = document.getElementById("info-content-area");
-        if (infoContent) {
-        infoContent.innerHTML = `
-            <h3>Contenido informativo</h3>
-            <p>${curso.descripcion}</p>
-            <p>Este módulo ofrece estrategias y recursos seleccionados para comprender mejor las características del trastorno y su abordaje pedagógico.</p>
-        `;
+    const infoContent = document.getElementById("info-content-area");
+    if (infoContent) {
+    const userRole = localStorage.getItem("userRole") || "estudiante";
+    
+    let textoExpandido = "";
+    
+    if (cursoId === "dislexia" && userRole === "docente") {
+        textoExpandido = "La dislexia es una dificultad específica del aprendizaje que afecta la lectura y la escritura, sin relación con la inteligencia del estudiante. Los alumnos con dislexia suelen confundir letras, invertir sílabas o leer con lentitud. En el aula, se recomienda brindar más tiempo en actividades de lectura, usar recursos visuales y promover la comprensión antes que la velocidad. La clave está en crear un ambiente paciente, reconocer el esfuerzo y ofrecer apoyos personalizados que fortalezcan la confianza y las habilidades lectoras.";
+    } else if (cursoId === "dislexia" && userRole === "estudiante") {
+        textoExpandido = "La dislexia significa que tu cerebro aprende de una forma diferente, por eso leer o escribir puede ser más difícil, pero no imposible. Con práctica, apoyo y estrategias adecuadas, puedes mejorar y disfrutar del aprendizaje. No te compares con otros, pide ayuda cuando la necesites y recuerda que tener dislexia no te limita, solo te hace aprender de otra manera.";
+    } else {
+        textoExpandido = "Este módulo ofrece estrategias y recursos seleccionados para comprender mejor las características del trastorno y su abordaje pedagógico.";
     }
+    
+    infoContent.innerHTML = `
+        <h3>Contenido informativo</h3>
+        <p>${textoExpandido}</p>
+    `;
+}
         curso.actividades.forEach(act => {
             const li = document.createElement("li");
             li.textContent = act;
