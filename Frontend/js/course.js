@@ -20,11 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
     docente: "../assets/cursos_media/dislexia_docente.jpg",
     estudiante: "../assets/cursos_media/dislexia_estudiante.jpg"
 },
-        actividades: [
-            "Juego de reconocimiento de letras (Educaplay)",
-            "Ejercicio de lectura guiada con apoyo visual",
-            "Actividad: asociación palabra-imagen (Cerebriti)"
-    ],
+      actividades: [
+    {
+        titulo: "Juego de reconocimiento de letras (Educaplay)",
+        descripcion: "Actividad interactiva para fortalecer la identificación visual y auditiva de letras. Permite a los docentes observar qué fonemas generan más confusión y reforzarlos mediante dinámicas lúdicas."
+    },
+    {
+        titulo: "Ejercicio de lectura guiada con apoyo visual",
+        descripcion: "Actividad diseñada para acompañar la lectura con imágenes, colores o resaltados que faciliten la comprensión del texto. Recomendable para alumnos con dislexia."
+    },
+    {
+        titulo: "Actividad: asociación palabra-imagen (Cerebriti)",
+        descripcion: "Ejercicio digital que relaciona palabras con sus imágenes correspondientes, reforzando vocabulario y ortografía. Útil en casos de disortografía o discalculia verbal."
+    }
+],
+
   recursos: [
     { nombre: "Guía del Ministerio de Educación sobre Lectura Inclusiva (PDF)", url: "https://www.mineducacion.gov.co/1759/articles-360293_foto_portada.pdf" },
     { nombre: "Video: Entendiendo la Dislexia de forma sencilla", url: "https://www.youtube.com/watch?v=Pmbp80t4flY" },
@@ -201,11 +211,22 @@ if (curso) {
         <p>${textoExpandido}</p>
     `;
 }
-        curso.actividades.forEach(act => {
-            const li = document.createElement("li");
+        // === Renderizar actividades con descripciones ===
+if (curso.actividades) {
+    curso.actividades.forEach(act => {
+        const li = document.createElement("li");
+        
+        // Si la actividad es un objeto con título y descripción
+        if (typeof act === 'object' && act.titulo) {
+            li.innerHTML = `<strong>${act.titulo}</strong><br><span style="font-size: 0.9em; color: #666;">${act.descripcion}</span>`;
+        } else {
+            
             li.textContent = act;
-            activitiesList.appendChild(li);
-        });
+        }
+        
+        activitiesList.appendChild(li);
+    });
+}
 
        curso.recursos.forEach(r => {
             const li = document.createElement("li");
