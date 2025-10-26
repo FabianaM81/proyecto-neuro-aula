@@ -125,24 +125,31 @@ tarjetas: [
     docente: "../assets/cursos_media/disortografia_docente.jpg",
     estudiante: "../assets/cursos_media/disortografia_estudiante.jpg"
 },
-        actividades: [
-            "Dictado auditivo interactivo (Educaplay)",
-            "Juego de ortografía visual (Cerebriti)",
-            "Taller de corrección de textos comunes"
-    ],
-    recursos: [
-    { nombre: "Video: ¿Qué es la Disortografía?", url: "https://www.youtube.com/watch?v=ipxkT9GrLHE" },
-    { nombre: "Video: Estrategias para mejorar la ortografía", url: "https://www.youtube.com/watch?v=teKVYaUgHHs" },
-    { nombre: "Video: Abordaje pedagógico de la Disortografía (Docentes)", url: "https://www.youtube.com/watch?v=vBJDibdziqk" },
-    { nombre: "Orientación Andújar - Disortografía (recursos descargables)", url: "https://www.orientacionandujar.es/category/disortografia/" }
-
+    actividades: [
+    {
+        titulo: "Dictado auditivo interactivo (Educaplay)",
+        descripcion: "Actividad que combina el estímulo auditivo con la escritura guiada, ideal para detectar y corregir errores ortográficos frecuentes. Permite al docente reforzar la discriminación fonológica."
+    },
+    {
+        titulo: "Juego de ortografía visual (Cerebriti)",
+        descripcion: "Recurso lúdico que potencia la atención visual y la memoria ortográfica. Facilita identificar patrones de error en palabras con dificultad y reforzar el aprendizaje mediante repetición dinámica."
+    },
+    {
+        titulo: "Taller de corrección de textos comunes",
+        descripcion: "Actividad práctica centrada en la revisión de fragmentos cortos con errores intencionales. El docente guía la identificación y corrección, promoviendo la reflexión sobre las reglas ortográficas."
+    }
 ],
+recursos: {
+    docente: [
+        { nombre: "Video: Estrategias para mejorar la ortografía", url: "https://www.youtube.com/watch?v=teKVYaUgHHs" },
+        { nombre: "Video: Abordaje pedagógico de la Disortografía", url: "https://www.youtube.com/watch?v=vBJDibdziqk" },
+        { nombre: "Actividades para mejorar la disortografía", url: "https://wordwall.net/es/resource/27204828/actividades-para-mejorar-la-disortograf%C3%ADa" }
+    ],
+    estudiante: [
+        { nombre: "Actividades para mejorar la disortografía", url: "https://wordwall.net/es/resource/27204828/actividades-para-mejorar-la-disortograf%C3%ADa" }
+    ]
+},
 tarjetas: [
-  {
-    tipo: "video",
-    nombre: "Video explicativo: ¿Qué es la Disortografía?",
-    url: "https://www.youtube.com/watch?v=ipxkT9GrLHE"
-  },
   {
     tipo: "juego",
     nombre: "Dictado auditivo interactivo (Educaplay)",
@@ -150,10 +157,16 @@ tarjetas: [
   },
   {
     tipo: "enlace",
-    nombre: "Orientación Andújar - Recursos descargables",
-    url: "https://www.orientacionandujar.es/category/disortografia/"
+    nombre: "Actividades para mejorar la disortografía",
+    url: "https://wordwall.net/es/resource/27204828/actividades-para-mejorar-la-disortograf%C3%ADa"
+  },
+  {
+    tipo: "video",
+    nombre: "Video explicativo: Comprensión de la Disortografía",
+    url: "https://www.youtube.com/watch?v=YPLVh8UZ4_s"
   }
 ]
+
 }
     };
 
