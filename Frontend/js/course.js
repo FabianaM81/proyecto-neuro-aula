@@ -74,23 +74,33 @@ tarjetas: [
     estudiante: "../assets/cursos_media/discalculia_estudiante.jpg"
 },
         actividades: [
-            "Juego interactivo de sumas y restas (Cerebriti)",
-            "Ejercicio de secuencias numéricas (Educaplay)",
-            "Actividad: problemas cotidianos con apoyo visual"
-    ],
-  recursos: [
-    { nombre: "Discalculia: La dificultad para aprender matemáticas", url: "https://www.infobae.com/educacion/2024/03/13/discalculia-la-dificultad-para-que-los-ninos-ninas-y-jovenes-aprendan-matematicas-como-abordarla-en-el-aula/" },
-    { nombre: "Dislexia y Discalculia: Diferencias y similitudes", url: "https://universidadeuropea.com/blog/dislexia-discalculia/" },
-    { nombre: "Video: Estrategias para abordar la Discalculia (Docentes)", url: "https://www.youtube.com/watch?v=p7nER_3lJbo" },
-    { nombre: "Libros sobre la Discalculia", url: "https://sololibros.org/libros-sobre-la-discalculia/" }
+    {
+        titulo: "Juego interactivo de sumas y restas (Cerebriti)",
+        descripcion: "Recurso digital que permite reforzar operaciones básicas mediante dinámicas de juego. Ayuda a identificar qué tipo de cálculos generan mayor dificultad y motiva al estudiante a practicar sin presión."
+    },
+    {
+        titulo: "Ejercicio de secuencias numéricas (Educaplay)",
+        descripcion: "Actividad en línea centrada en el reconocimiento de patrones y el razonamiento lógico. Facilita la observación del progreso del estudiante y permite aplicar apoyos visuales o auditivos según la necesidad."
+    },
+    {
+        titulo: "Actividad: problemas cotidianos con apoyo visual",
+        descripcion: "Propuesta práctica que utiliza imágenes y situaciones reales (compras, horarios, medidas) para aplicar las matemáticas de manera significativa. Permite adaptar el nivel de dificultad."
+    }
 ],
+ recursos: {
+    docente: [
+        { nombre: "Discalculia: La dificultad para aprender matemáticas", url: "https://www.infobae.com/educacion/2024/03/13/discalculia-la-dificultad-para-que-los-ninos-ninas-y-jovenes-aprendan-matematicas-como-abordarla-en-el-aula/" },
+        { nombre: "Dislexia y Discalculia: Diferencias y similitudes", url: "https://universidadeuropea.com/blog/dislexia-discalculia/" },
+        { nombre: "Video: Estrategias para abordar la Discalculia", url: "https://www.youtube.com/watch?v=8ZY4z-G7-vo" },
+        { nombre: "Libros sobre la Discalculia", url: "https://sololibros.org/libros-sobre-la-discalculia/" }
+    ],
+    estudiante: [
+        { nombre: "LogicLike - Juegos de lógica y matemáticas", url: "https://logiclike.com/es-mx/v3/cabinet/dashboard/logic" },
+        { nombre: "Video: Matemáticas divertidas", url: "https://www.youtube.com/watch?v=QIdFlvvlUMo" }
+    ]
+},
 
 tarjetas: [
-  {
-    tipo: "video",
-    nombre: "Video explicativo: Diagnóstico e Intervención",
-    url: "https://www.youtube.com/watch?v=p7nER_3lJbo"
-  },
   {
     tipo: "juego",
     nombre: "Juego interactivo de sumas y restas (Cerebriti)",
@@ -98,10 +108,15 @@ tarjetas: [
   },
   {
     tipo: "enlace",
-    nombre: "Técnicas y Recursos para la enseñanza (PDF)",
+    nombre: "Técnicas y Recursos para la enseñanza",
     url: "https://universidadeuropea.com/blog/dislexia-discalculia/"
+  },
+  {
+    tipo: "video",
+    nombre: "Video explicativo: Diagnóstico e Intervención",
+    url: "https://www.youtube.com/watch?v=mMX7iHtHUK8"
   }
-]
+],
 },
       disortografia: {
         titulo: "Disortografía: fortaleciendo la escritura",
@@ -227,12 +242,20 @@ if (Array.isArray(recursosParaVideo)) {
     let textoExpandido = "";
     
     if (cursoId === "dislexia" && userRole === "docente") {
-        textoExpandido = "La dislexia es una dificultad específica del aprendizaje que afecta la lectura y la escritura, sin relación con la inteligencia del estudiante. Los alumnos con dislexia suelen confundir letras, invertir sílabas o leer con lentitud. En el aula, se recomienda brindar más tiempo en actividades de lectura, usar recursos visuales y promover la comprensión antes que la velocidad. La clave está en crear un ambiente paciente, reconocer el esfuerzo y ofrecer apoyos personalizados que fortalezcan la confianza y las habilidades lectoras.";
-    } else if (cursoId === "dislexia" && userRole === "estudiante") {
-        textoExpandido = "La dislexia significa que tu cerebro aprende de una forma diferente, por eso leer o escribir puede ser más difícil, pero no imposible. Con práctica, apoyo y estrategias adecuadas, puedes mejorar y disfrutar del aprendizaje. No te compares con otros, pide ayuda cuando la necesites y recuerda que tener dislexia no te limita, solo te hace aprender de otra manera.";
-    } else {
-        textoExpandido = "Este módulo ofrece estrategias y recursos seleccionados para comprender mejor las características del trastorno y su abordaje pedagógico.";
-    }
+    textoExpandido = "La dislexia es una dificultad específica del aprendizaje que afecta la lectura y la escritura, sin relación con la inteligencia del estudiante. Los alumnos con dislexia suelen confundir letras, invertir sílabas o leer con lentitud. En el aula, se recomienda brindar más tiempo en actividades de lectura, usar recursos visuales y promover la comprensión antes que la velocidad. La clave está en crear un ambiente paciente, reconocer el esfuerzo y ofrecer apoyos personalizados que fortalezcan la confianza y las habilidades lectoras.";
+} else if (cursoId === "dislexia" && userRole === "estudiante") {
+    textoExpandido = "La dislexia significa que tu cerebro aprende de una forma diferente, por eso leer o escribir puede ser más difícil, pero no imposible. Con práctica, apoyo y estrategias adecuadas, puedes mejorar y disfrutar del aprendizaje. No te compares con otros, pide ayuda cuando la necesites y recuerda que tener dislexia no te limita, solo te hace aprender de otra manera.";
+} else if (cursoId === "discalculia" && userRole === "docente") {
+    textoExpandido = "La discalculia es una dificultad del aprendizaje relacionada con los números, el cálculo y la comprensión de conceptos matemáticos. Los estudiantes pueden tener problemas para recordar operaciones, comprender cantidades o seguir secuencias numéricas. Es útil emplear material manipulativo, apoyos visuales y actividades que relacionen las matemáticas con la vida cotidiana. Lo más importante es ofrecer explicaciones claras y reforzar la confianza del estudiante para evitar la frustración.";
+} else if (cursoId === "discalculia" && userRole === "estudiante") {
+    textoExpandido = "La discalculia puede hacer que las matemáticas te parezcan confusas o difíciles de recordar, pero con apoyo y práctica puedes aprender paso a paso. No se trata de ser 'malo para los números', sino de encontrar la forma que mejor te ayude a entenderlos. Usa ejemplos de la vida real y no tengas miedo de preguntar, porque cada avance cuenta.";
+} else if (cursoId === "disortografia" && userRole === "docente") {
+    textoExpandido = "La disortografía afecta la escritura, especialmente la ortografía y la organización de las palabras. Los alumnos pueden cometer errores frecuentes al escribir, incluso si conocen las reglas. Es importante trabajar con ejercicios que relacionen sonido y letra, permitir revisiones con apoyo visual y centrarse más en el contenido que en los errores formales. Un enfoque positivo ayuda a que el estudiante mejore sin miedo a equivocarse.";
+} else if (cursoId === "disortografia" && userRole === "estudiante") {
+    textoExpandido = "La disortografía puede hacer que al escribir cometas errores con las letras o las reglas, aunque sepas cómo se escriben. No pasa nada: equivocarse es parte de aprender. Puedes usar lecturas cortas, dictados guiados o revisar tus textos con calma. Lo importante es seguir practicando y no dejar que los errores te desanimen, porque escribir bien se aprende con tiempo y confianza.";
+} else {
+    textoExpandido = "Este módulo ofrece estrategias y recursos seleccionados para comprender mejor las características del trastorno y su abordaje pedagógico.";
+}
     
     infoContent.innerHTML = `
         <h3>Contenido informativo</h3>
