@@ -46,9 +46,11 @@ La aplicación se conecta a una base de datos MySQL que contiene una tabla `usua
 | Campo | Tipo | Descripción |
 |-------|------|--------------|
 | id | INT (PK, AI) | Identificador único del usuario |
-| nombre | VARCHAR(100) | Nombre completo del usuario |
-| correo | VARCHAR(100) | Correo electrónico del usuario |
-| telefono | VARCHAR(20) | Teléfono de contacto |
+| nombre | VARCHAR(255) | Nombre completo del usuario |
+| correo | VARCHAR(255) | Correo electrónico del usuario |
+| password | VARCHAR(255) | Seis digitos |
+| telefono | VARCHAR(50) | Teléfono de contacto |
+| id_rol | INT (FK) | Rol diferenciador de contenidos |
 
 
 
@@ -153,5 +155,7 @@ Es importante mencionar que el trabajo en este proyecto se ha venido realizando 
 La versión actual refleja el mismo avance y estructura funcional lograda durante ese proceso.
 
 La versión de este documento simula el README de crud-usuarios.
+
+Se siguen trabajando en mejoras después de haberse compartido el enlace 27/10/2025
 
 ---
