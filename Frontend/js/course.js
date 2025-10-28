@@ -141,11 +141,12 @@ tarjetas: [
 ],
 recursos: {
     docente: [
-        { nombre: "Video: Estrategias para mejorar la ortografía", url: "https://www.youtube.com/watch?v=teKVYaUgHHs" },
+        { nombre: "Video: Estrategias para mejorar la ortografía", url: "https://www.youtube.com/watch?v=teKVYaUgHHsHHs"},
         { nombre: "Video: Abordaje pedagógico de la Disortografía", url: "https://www.youtube.com/watch?v=vBJDibdziqk" },
         { nombre: "Actividades para mejorar la disortografía", url: "https://wordwall.net/es/resource/27204828/actividades-para-mejorar-la-disortograf%C3%ADa" }
     ],
     estudiante: [
+        { nombre: "Video: Estrategias para mejorar la ortografía", url: "https://www.youtube.com/watch?v=teKVYaUgHHsHHs"},
         { nombre: "Actividades para mejorar la disortografía", url: "https://wordwall.net/es/resource/27204828/actividades-para-mejorar-la-disortograf%C3%ADa" }
     ]
 },
