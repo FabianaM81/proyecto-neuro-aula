@@ -1,5 +1,9 @@
 require("dotenv").config(); 
-if (!process.env.JWT_SECRET) console.warn('⚠️  JWT_SECRET no definida en .env - la autenticación podría fallar');
+if (!process.env.JWT_SECRET) {
+  console.error('🚨 ERROR CRÍTICO: JWT_SECRET no definida en .env');
+  console.error('❌ La aplicación no puede iniciar de forma segura.');
+  throw new Error('JWT_SECRET no definida en .env - La autenticación no puede funcionar');
+}
 const express = require("express");          
 const cors = require("cors");                
 const mysql = require("mysql2");
@@ -51,69 +55,6 @@ app.get("/api/me", authMiddleware, (req, res) => {
   });
 });
 
-// Obtener todos los usuarios
-app.get("/api/usuarios", (req, res) => {
-  conexion.query("SELECT * FROM usuarios", (err, resultados) => {
-    if (err) {
-      return res.status(500).json({ error: "Error en la base de datos" });
-    }
-    res.json(resultados);
-  });
-});
-
-// Obtener usuario por ID
-app.get("/api/usuarios/:id", (req, res) => {
-  const { id } = req.params;
-
-  conexion.query("SELECT * FROM usuarios WHERE id = ?", [id], (err, resultado) => {
-    if (err) {
-      console.error("Error en SELECT:", err);
-      return res.status(500).json({ error: err.sqlMessage });
-    }
-    if (resultado.length === 0) {
-      return res.status(404).json({ error: "Usuario no encontrado" });
-    }
-    res.json(resultado[0]);
-  });
-});
-
-// Actualizar usuario
-app.put("/api/usuarios/:id", (req, res) => {
-  const { id } = req.params;
-  const { nombre, email, password } = req.body;
-
-  conexion.query(
-    "UPDATE usuarios SET nombre = ?, correo = ?, password = ? WHERE id = ?",
-    [nombre, email, password, id],
-    (err, resultado) => {
-      if (err) {
-        console.error("Error en UPDATE:", err);
-        return res.status(500).json({ error: err.sqlMessage });
-      }
-      if (resultado.affectedRows === 0) {
-        return res.status(404).json({ error: "Usuario no encontrado" });
-      }
-      res.json({ message: "Usuario actualizado exitosamente" });
-    }
-  );
-});
-
-// Eliminar usuario
-app.delete("/api/usuarios/:id", (req, res) => {
-  const { id } = req.params;
-
-  conexion.query("DELETE FROM usuarios WHERE id = ?", [id], (err, resultado) => {
-    if (err) {
-      console.error("Error en DELETE:", err);
-      return res.status(500).json({ error: err.sqlMessage });
-    }
-    if (resultado.affectedRows === 0) {
-      return res.status(404).json({ error: "Usuario no encontrado" });
-    }
-    res.json({ message: "Usuario eliminado exitosamente" });
-  });
-});
-
 // 🔒 Duplicado desactivado: /api/login ahora se maneja en routes/usuarios.js
 
 // Middleware para proteger rutas
@@ -131,15 +72,6 @@ function authenticateToken(req, res, next) {
 }
 */
 
-// Ruta protegida de ejemplo — devuelve info del usuario autenticado
-app.get("/api/me", authMiddleware, (req, res) => {
-  const userId = req.user.id;
-  conexion.query("SELECT id, nombre, correo, creado_en FROM usuarios WHERE id = ?", [userId], (err, results) => {
-    if (err) return res.status(500).json({ error: "Error en la base de datos" });
-    if (results.length === 0) return res.status(404).json({ error: "Usuario no encontrado" });
-    res.json(results[0]);
-  });
-});
 // ---------- fin autenticación ----------
 
 app.listen(PORT, () => {
