@@ -30,7 +30,7 @@ NeuroAula/
 │
 ├── frontend/
 │   ├── index.html
-│   ├── script.js
+│   ├── auth.js
 │   └── styles.css
 │
 ├── package.json
