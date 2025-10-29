@@ -236,3 +236,92 @@ function logout() {
     window.location.href = "login.html";
   }
 }
+
+// ========================================
+// BÚSQUEDA Y FILTRADO
+// ========================================
+let allUsers = []; // Guardar todos los usuarios
+
+// Modificar fetchUsers para guardar todos los usuarios
+async function fetchUsers() {
+  const token = localStorage.getItem("token");
+  const container = document.getElementById("user-list-container");
+
+  try {
+    const response = await fetch("http://localhost:5000/api/usuarios", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Error al obtener usuarios");
+    }
+
+    allUsers = await response.json(); // Guardar todos los usuarios
+
+    if (allUsers.length === 0) {
+      container.innerHTML = '<div class="no-users">📭 No hay usuarios registrados</div>';
+      return;
+    }
+
+    renderUsers(allUsers);
+    updateResultsCount(allUsers.length);
+
+  } catch (error) {
+    console.error("Error:", error);
+    container.innerHTML = `
+      <div class="error">
+        ❌ Error al cargar los usuarios: ${error.message}
+      </div>
+    `;
+  }
+}
+
+// Búsqueda en tiempo real
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search-input");
+  const roleFilter = document.getElementById("role-filter");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", filterUsers);
+  }
+
+  if (roleFilter) {
+    roleFilter.addEventListener("change", filterUsers);
+  }
+});
+
+// Filtrar usuarios
+function filterUsers() {
+  const searchTerm = document.getElementById("search-input").value.toLowerCase();
+  const roleFilter = document.getElementById("role-filter").value;
+
+  let filtered = allUsers;
+
+  // Filtrar por búsqueda
+  if (searchTerm) {
+    filtered = filtered.filter(user => 
+      user.nombre.toLowerCase().includes(searchTerm) ||
+      user.correo.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  // Filtrar por rol
+  if (roleFilter !== "all") {
+    filtered = filtered.filter(user => user.id_rol == roleFilter);
+  }
+
+  renderUsers(filtered);
+  updateResultsCount(filtered.length);
+}
+
+// Actualizar contador de resultados
+function updateResultsCount(count) {
+  const resultsCount = document.getElementById("results-count");
+  if (resultsCount) {
+    resultsCount.textContent = `Mostrando ${count} usuario${count !== 1 ? 's' : ''}`;
+  }
+}
