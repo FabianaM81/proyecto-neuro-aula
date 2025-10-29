@@ -37,7 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("userRole", rolTexto);
 
           alert("✅ Inicio de sesión exitoso. Bienvenido/a, " + data.usuario.nombre);
-          window.location.href = "../html/resources.html";
+
+          // Redirigir según el rol
+          if (data.usuario.id_rol === 3) {
+            // Administrador va a gestión de usuarios
+            window.location.href = "../html/user_management.html";
+          } else {
+            // Profesores y estudiantes van a recursos
+            window.location.href = "../html/resources.html";
+          }
         } else {
           alert("❌ Error: " + (data.error || data.message));
         }
@@ -125,3 +133,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 })();
+
+// ========================================
+// AGREGAR ENLACE DE GESTIÓN PARA ADMINS
+// ========================================
+document.addEventListener("DOMContentLoaded", () => {
+  const idRol = localStorage.getItem("id_rol");
+  
+  // Si es administrador (id_rol = 3)
+  if (idRol === "3") {
+    const navLinks = document.querySelector(".nav-links");
+    
+    if (navLinks) {
+      // Verificar si ya existe el enlace
+      const existingLink = Array.from(navLinks.querySelectorAll("a")).find(
+        a => a.getAttribute("href") === "user_management.html"
+      );
+      
+      // Si no existe, agregarlo antes del enlace de Login
+      if (!existingLink) {
+        const loginLink = Array.from(navLinks.children).find(
+          li => li.querySelector('a[href*="login"]')
+        );
+        
+        if (loginLink) {
+          const li = document.createElement("li");
+          li.innerHTML = '<a href="user_management.html">Gestión de Usuarios</a>';
+          navLinks.insertBefore(li, loginLink);
+        }
+      }
+    }
+  }
+});
