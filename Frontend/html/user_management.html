@@ -186,15 +186,50 @@
     </style>
 </head>
 <body>
+    <!-- Menú de navegación -->
+    <header style="background: #2c3e50; margin: -20px -20px 20px -20px; padding: 15px 30px; border-radius: 15px 15px 0 0;">
+        <nav style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+            <a href="../index.html">
+                <img src="../assets/LogoNeuroAula.png" alt="Logo NeuroAula" style="height: 40px;">
+            </a>
+            <ul style="list-style: none; display: flex; gap: 25px; margin: 0; padding: 0;">
+                <li><a href="../index.html" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px;">Inicio</a></li>
+                <li><a href="about.html" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px;">Sobre Nosotros</a></li>
+                <li><a href="services.html" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px;">Servicios</a></li>
+                <li><a href="resources.html" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px;">Recursos</a></li>
+                <li><a href="user_management.html" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; background: #667eea;">Gestión de Usuarios</a></li>
+                <li><a href="#" onclick="logout(); return false;" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px;">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="container">
-        <header>
-            <h1>👥 Gestión de Usuarios</h1>
-            <p>Panel de Administración - NeuroAula</p>
-        </header>
+        <div style="text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid #667eea;">
+            <h1 style="color: #333; font-size: 2rem; margin-bottom: 10px;">👥 Gestión de Usuarios</h1>
+            <p style="color: #666; font-size: 1rem;">Panel de Administración - NeuroAula</p>
+        </div>
 
         <div class="user-info">
-            <span>👤 Bienvenido/a: <strong id="current-user">Cargando...</strong></span>
-            <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+        <span>👤 Bienvenido/a: <strong id="current-user">Cargando...</strong></span>
+        </div>
+
+        <!-- Barra de búsqueda y filtros -->
+        <div class="search-filter-bar">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="🔍 Buscar por nombre o correo...">
+            </div>
+            <div class="filter-box">
+                <label>Filtrar por rol:</label>
+                <select id="role-filter">
+                    <option value="all">Todos</option>
+                    <option value="1">👨‍🏫 Profesores</option>
+                    <option value="2">🎓 Estudiantes</option>
+                    <option value="3">👑 Administradores</option>
+                </select>
+            </div>
+            <div class="results-info">
+                <span id="results-count">Mostrando 0 usuarios</span>
+            </div>
         </div>
 
         <div id="user-list-container">
@@ -205,3 +240,60 @@
     <script src="../js/user_management.js"></script>
 </body>
 </html>
+
+/* Barra de búsqueda y filtros */
+.search-filter-bar {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 250px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.filter-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-box label {
+    font-weight: 500;
+    color: #333;
+}
+
+.filter-box select {
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: white;
+}
+
+.results-info {
+    margin-left: auto;
+    color: #666;
+    font-weight: 500;
+}
