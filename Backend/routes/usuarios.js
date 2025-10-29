@@ -30,15 +30,14 @@ router.post(
       [nombre, email, hashedPassword, telefono || null, id_rol || 2],
       (err, resultado) => {
         if (err) {
-        console.error('❌ Error en query:', err);
-    if (err.code === 'ER_DUP_ENTRY') {
-           console.log('⚠️ Duplicado detectado (correo o teléfono existente)');
-           return res.status(400).json({ error: 'El correo o el teléfono ya están registrados' });
+          console.error('❌ Error en query:', err);
+          if (err.code === 'ER_DUP_ENTRY') {
+            console.log('⚠️ Duplicado detectado (correo o teléfono existente)');
+            return res.status(400).json({ error: 'El correo o el teléfono ya están registrados' });
           }
           return res.status(500).json({ error: 'Error interno del servidor' });
         }
       
-    // Si todo sale bien
         res.status(201).json({
           message: 'Usuario creado exitosamente',
           id: resultado.insertId,
@@ -51,7 +50,6 @@ router.post(
     );
   }
 );
-
 
 // Ruta para el login de usuario
 router.post('/login', (req, res) => {
@@ -95,7 +93,7 @@ router.post('/login', (req, res) => {
 // Ruta protegida para obtener datos del usuario autenticado
 router.get('/me', authMiddleware, (req, res) => {
   conexion.query(
-    'SELECT id, nombre, correo FROM usuarios WHERE id = ?',
+    'SELECT id, nombre, correo, id_rol FROM usuarios WHERE id = ?',
     [req.user.id],
     (err, resultados) => {
       if (err) {
@@ -112,9 +110,9 @@ router.get('/me', authMiddleware, (req, res) => {
   );
 });
 
-// Obtener todos los usuarios (protegida, solo para administradores o roles específicos)
+// Obtener todos los usuarios (protegida)
 router.get('/', authMiddleware, (req, res) => {
-  conexion.query('SELECT id, nombre, correo FROM usuarios', (err, resultados) => {
+  conexion.query('SELECT id, nombre, correo, id_rol FROM usuarios', (err, resultados) => {
     if (err) {
       console.error('Error al obtener usuarios:', err);
       return res.status(500).json({ error: 'Error en la base de datos' });
@@ -127,7 +125,7 @@ router.get('/', authMiddleware, (req, res) => {
 router.get('/:id', authMiddleware, (req, res) => {
   const { id } = req.params;
 
-  conexion.query('SELECT id, nombre, correo FROM usuarios WHERE id = ?', [id], (err, resultado) => {
+  conexion.query('SELECT id, nombre, correo, id_rol FROM usuarios WHERE id = ?', [id], (err, resultado) => {
     if (err) {
       console.error('Error en SELECT:', err);
       return res.status(500).json({ error: 'Error interno del servidor' });
@@ -142,17 +140,18 @@ router.get('/:id', authMiddleware, (req, res) => {
 // Actualizar usuario (protegida)
 router.put('/:id', authMiddleware, (req, res) => {
   const { id } = req.params;
-  const { nombre, email, password } = req.body;
+  const { nombre, email, password, id_rol } = req.body;
 
   let updateFields = [];
   let updateValues = [];
 
   if (nombre) { updateFields.push('nombre = ?'); updateValues.push(nombre); }
-  if (email) { updateFields.push('email = ?'); updateValues.push(email); }
+  if (email) { updateFields.push('correo = ?'); updateValues.push(email); }
   if (password) { 
     const hashedPassword = bcrypt.hashSync(password, 10);
     updateFields.push('password = ?'); updateValues.push(hashedPassword); 
   }
+  if (id_rol) { updateFields.push('id_rol = ?'); updateValues.push(id_rol); }
 
   if (updateFields.length === 0) {
     return res.status(400).json({ message: 'No hay campos para actualizar' });

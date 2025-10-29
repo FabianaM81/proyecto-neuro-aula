@@ -30,7 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("nombreUsuario", data.usuario.nombre);
-          localStorage.setItem("userRole", data.usuario.id_rol === 1 ? "docente" : "estudiante");
+          localStorage.setItem("id_rol", data.usuario.id_rol);
+          let rolTexto = "estudiante";  // Por defecto
+          if (data.usuario.id_rol === 1) rolTexto = "profesor";
+          else if (data.usuario.id_rol === 3) rolTexto = "administrador";
+          localStorage.setItem("userRole", rolTexto);
+
           alert("✅ Inicio de sesión exitoso. Bienvenido/a, " + data.usuario.nombre);
           window.location.href = "../html/resources.html";
         } else {
