@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuarios - NeuroAula</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
     <style>
         /* === Variables de color de NeuroAula === */
         :root {
@@ -27,17 +27,20 @@
         /* === Tipografía principal === */
         body {
             font-family: 'Open Sans', Arial, sans-serif;
-            background-color: var(--light-bg);
+            background-color: #fafafa;
             min-height: 100vh;
             padding: 0;
-            color: var(--text-color);
-            line-height: 1.6;
+            color: #222;
+            line-height: 1.8;
+            font-size: 17px;
+            font-weight: 400;
         }
 
         /* === Tipografía para títulos === */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', 'Open Sans', sans-serif;
             font-weight: 700;
+            color: var(--primary-color);
         }
 
         /* === Header y Navegación === */
@@ -57,7 +60,7 @@
         }
 
         .navbar .logo img {
-            height: 60px;
+            height: 70px;
         }
 
         .nav-links {
@@ -66,24 +69,33 @@
             gap: 25px;
             margin: 0;
             padding: 0;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0;
         }
 
         .nav-links a {
-            color: var(--primary-color);
+            color: #003366 !important;
             text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-weight: bold;
+            padding: 5px 0;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Open Sans', Arial, sans-serif;
             transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--secondary-color);
+            color: #0055cc !important;
+            text-decoration: none;
         }
 
         .nav-links a.active {
             background: var(--secondary-color);
-            color: var(--white);
+            color: var(--white) !important;
+            padding: 8px 15px;
+            border-radius: 5px;
         }
 
         /* === Container principal === */
@@ -108,11 +120,14 @@
             color: var(--primary-color);
             font-size: 2rem;
             margin-bottom: 10px;
+            font-family: 'Montserrat', 'Open Sans', sans-serif;
+            font-weight: 700;
         }
 
         .page-header p {
-            color: var(--text-color);
+            color: #222;
             font-size: 1rem;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         /* === Info del usuario actual === */
@@ -127,8 +142,9 @@
         }
 
         .user-info span {
-            color: var(--text-color);
+            color: #222;
             font-weight: 500;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         /* === Botón de cerrar sesión === */
@@ -142,6 +158,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         .btn-logout:hover {
@@ -191,6 +208,7 @@
         .filter-box label {
             font-weight: 600;
             color: var(--primary-color);
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         .filter-box select {
@@ -211,8 +229,9 @@
 
         .results-info {
             margin-left: auto;
-            color: var(--text-color);
+            color: #222;
             font-weight: 500;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         /* === Container de la lista === */
@@ -240,6 +259,7 @@
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid var(--light-bg);
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         table th {
@@ -247,6 +267,10 @@
             text-transform: uppercase;
             font-size: 0.85rem;
             letter-spacing: 0.5px;
+        }
+
+        table td {
+            color: #222;
         }
 
         table tbody tr {
@@ -267,6 +291,7 @@
             margin-right: 5px;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         .btn-edit {
@@ -296,6 +321,7 @@
             border-radius: 15px;
             font-size: 0.85rem;
             font-weight: 600;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         .badge-admin {
@@ -317,8 +343,9 @@
         .loading {
             text-align: center;
             padding: 40px;
-            color: var(--text-color);
+            color: #222;
             font-size: 1.1rem;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         .error {
@@ -328,6 +355,7 @@
             border-radius: 8px;
             margin-top: 20px;
             border: 1px solid #f5c6cb;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         .no-users {
@@ -335,6 +363,7 @@
             padding: 40px;
             color: #999;
             font-size: 1.1rem;
+            font-family: 'Open Sans', Arial, sans-serif;
         }
 
         /* === Responsive === */
@@ -435,3 +464,4 @@
     <script src="../js/user_management.js"></script>
 </body>
 </html>
+
