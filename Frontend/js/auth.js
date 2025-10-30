@@ -138,27 +138,36 @@ document.addEventListener("DOMContentLoaded", () => {
 // AGREGAR ENLACE DE GESTIÓN PARA ADMINS
 // ========================================
 document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem("token");
   const idRol = localStorage.getItem("id_rol");
+  const currentPage = window.location.pathname.split("/").pop();
   
-  // Si es administrador (id_rol = 3)
-  if (idRol === "3") {
+  // Páginas donde NO debe aparecer (solo login y registro)
+  const publicPages = ["login.html", "register.html"];
+  
+  // Solo agregar si está logueado, es admin Y NO está en login/registro
+  if (token && idRol === "3" && !publicPages.includes(currentPage)) {
     const navLinks = document.querySelector(".nav-links");
     
     if (navLinks) {
       // Verificar si ya existe el enlace
       const existingLink = Array.from(navLinks.querySelectorAll("a")).find(
-        a => a.getAttribute("href") === "user_management.html"
+        a => a.href.includes("user_management.html")
       );
       
-      // Si no existe, agregarlo antes del enlace de Login
       if (!existingLink) {
+        // Detectar si estamos en la raíz (index.html) o en /html/
+        const isInRoot = currentPage === "index.html" || currentPage === "";
+        const href = isInRoot ? "html/user_management.html" : "user_management.html";
+        
+        // Buscar el enlace de Login para insertar antes
         const loginLink = Array.from(navLinks.children).find(
           li => li.querySelector('a[href*="login"]')
         );
         
         if (loginLink) {
           const li = document.createElement("li");
-          li.innerHTML = '<a href="user_management.html">Gestión de Usuarios</a>';
+          li.innerHTML = `<a href="${href}">Gestión de Usuarios</a>`;
           navLinks.insertBefore(li, loginLink);
         }
       }
