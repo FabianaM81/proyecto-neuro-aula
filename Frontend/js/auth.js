@@ -67,17 +67,51 @@ document.addEventListener("DOMContentLoaded", () => {
     // Validación visual en tiempo real
     const passwordInput = document.getElementById("password");
     const confirmInput = document.getElementById("confirm-password");
+    const errorMsg = document.getElementById("password-error");
 
-    confirmInput.addEventListener("input", () => {
-      const errorMsg = document.getElementById("password-error");
-      if (confirmInput.value !== passwordInput.value) {
+    // Validación de longitud mínima en tiempo real
+    passwordInput.addEventListener("input", () => {
+      const password = passwordInput.value;
+      
+      if (password.length > 0 && password.length < 6) {
+        passwordInput.style.borderColor = "red";
+        errorMsg.textContent = "La contraseña debe tener al menos 6 caracteres";
+        errorMsg.style.display = "block";
+      } else {
+        passwordInput.style.borderColor = "";
+        if (confirmInput.value === "" || confirmInput.value === password) {
+          errorMsg.style.display = "none";
+        }
+      }
+      
+      if (confirmInput.value.length > 0) {
+        validatePasswordMatch();
+      }
+    });
+
+    confirmInput.addEventListener("input", validatePasswordMatch);
+
+    function validatePasswordMatch() {
+      const password = passwordInput.value;
+      const confirmPassword = confirmInput.value;
+      
+      if (password.length < 6) {
+        passwordInput.style.borderColor = "red";
+        errorMsg.textContent = "La contraseña debe tener al menos 6 caracteres";
+        errorMsg.style.display = "block";
+        return;
+      }
+      
+      if (confirmPassword !== password) {
         confirmInput.style.borderColor = "red";
+        errorMsg.textContent = "Las contraseñas no coinciden";
         errorMsg.style.display = "block";
       } else {
         confirmInput.style.borderColor = "green";
+        passwordInput.style.borderColor = "green";
         errorMsg.style.display = "none";
       }
-    });
+    }
 
     registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -89,8 +123,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const telefono = document.getElementById("telefono").value.trim();
       const id_rol = document.getElementById("rol").value;
 
+      // Validación de longitud mínima antes de enviar
+      if (password.length < 6) {
+        errorMsg.textContent = "La contraseña debe tener al menos 6 caracteres";
+        errorMsg.style.display = "block";
+        passwordInput.style.borderColor = "red";
+        passwordInput.focus();
+        return;
+      }
+
+      // Validación de coincidencia
       if (password !== confirmPassword) {
-        alert("Las contraseñas no coinciden");
+        errorMsg.textContent = "Las contraseñas no coinciden";
+        errorMsg.style.display = "block";
+        confirmInput.style.borderColor = "red";
+        confirmInput.focus();
         return;
       }
 
@@ -172,5 +219,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
+  }
+});
+
+// ========================================
+// LÓGICA DE MENÚ MÓVIL
+// ========================================
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
   }
 });
