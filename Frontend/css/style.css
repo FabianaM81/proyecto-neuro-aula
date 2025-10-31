@@ -684,3 +684,61 @@ footer .container {
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25); /* efecto azul suave */
 }
 
+/* ======================================== */
+/* RESPONSIVIDAD CLAVE */
+/* ======================================== */
+
+/* Ocultar el botón de menú por defecto */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--primary-color);
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    /* Mostrar el botón de menú */
+    .menu-toggle {
+        display: block;
+        order: 2; /* Colocarlo después del logo */
+    }
+
+    /* Ocultar los enlaces de navegación por defecto */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        order: 3; /* Colocarlo debajo del logo y el botón */
+    }
+
+    /* Mostrar los enlaces cuando el menú está activo */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+        border-bottom: 1px solid var(--light-bg);
+        padding-bottom: 5px;
+    }
+
+    .navbar .container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    /* Ajuste para la sección de Características */
+    .feature-grid {
+        flex-direction: column;
+    }
+    
+    .feature-item {
+        margin-bottom: 20px;
+    }
+}
