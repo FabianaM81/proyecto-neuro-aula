@@ -28,45 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================================
-// OBTENER USUARIOS DEL BACKEND
-// ========================================
-async function fetchUsers() {
-  const token = localStorage.getItem("token");
-  const container = document.getElementById("user-list-container");
-
-  try {
-    const response = await fetch("http://localhost:5000/api/usuarios", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al obtener usuarios");
-    }
-
-    const usuarios = await response.json();
-
-    if (usuarios.length === 0) {
-      container.innerHTML = '<div class="no-users">📭 No hay usuarios registrados</div>';
-      return;
-    }
-
-    renderUsers(usuarios);
-
-  } catch (error) {
-    console.error("Error:", error);
-    container.innerHTML = `
-      <div class="error">
-        ❌ Error al cargar los usuarios: ${error.message}
-      </div>
-    `;
-  }
-}
-
-// ========================================
 // RENDERIZAR TABLA DE USUARIOS
 // ========================================
 function renderUsers(usuarios) {

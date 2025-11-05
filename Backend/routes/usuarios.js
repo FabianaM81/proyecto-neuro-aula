@@ -16,15 +16,14 @@ router.post(
       .isLength({ min: 6 })
       .withMessage('La contraseña debe tener al menos 6 caracteres'),
   ],
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errores: errors.array() });
     }
 
     const { nombre, email, password, telefono, id_rol } = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 10);
-
+    const hashedPassword = await bcrypt.hash(password, 10);
     conexion.query(
       'INSERT INTO usuarios (nombre, correo, password, telefono, id_rol) VALUES (?, ?, ?, ?, ?)',
       [nombre, email, hashedPassword, telefono || null, id_rol || 2],
@@ -52,7 +51,7 @@ router.post(
 );
 
 // Ruta para el login de usuario
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -71,7 +70,7 @@ router.post('/login', (req, res) => {
 
     const usuario = resultados[0];
 
-    const passwordValida = bcrypt.compareSync(password, usuario.password);
+    const passwordValida = await bcrypt.compare(password, usuario.password);
     if (!passwordValida) {
       return res.status(401).json({ error: 'Contraseña incorrecta' });
     }
