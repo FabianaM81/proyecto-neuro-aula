@@ -1,5 +1,6 @@
 // auth.js - Maneja login, registro y protección de rutas
-
+// Configuración de la API
+const API_BASE_URL = "http://localhost:5000/api";
 // ========================================
 // MANEJO DEL LOGIN
 // ========================================
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const response = await fetch("http://localhost:5000/api/usuarios/login", {
+        const response = await fetch(`${API_BASE_URL}/usuarios/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
@@ -142,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const response = await fetch("http://localhost:5000/api/usuarios", {
+        const response = await fetch(`${API_BASE_URL}/usuarios`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ nombre, email, password, telefono, id_rol }),
