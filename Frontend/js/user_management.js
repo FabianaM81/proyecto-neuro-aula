@@ -1,3 +1,6 @@
+// Configuración de la API
+const API_BASE_URL = "http://localhost:5000/api";
+
 // ========================================
 // VERIFICAR AUTENTICACIÓN Y ROL
 // ========================================
@@ -124,7 +127,7 @@ async function updateUser(id, nombre, email, id_rol, password) {
   }
 
   try {
-    const response = await fetch(`http://localhost:5000/api/usuarios/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/usuarios/${id}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -165,7 +168,7 @@ async function performDelete(id) {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch(`http://localhost:5000/api/usuarios/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/usuarios`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -209,7 +212,7 @@ async function fetchUsers() {
   const container = document.getElementById("user-list-container");
 
   try {
-    const response = await fetch("http://localhost:5000/api/usuarios", {
+    const response = await fetch(`${API_BASE_URL}/usuarios/${id}`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
