@@ -407,6 +407,143 @@
                 padding: 10px;
             }
         }
+    /* === Modal de Edición === */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        .modal-header {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+
+        .close-modal {
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--white);
+            transition: transform 0.2s ease;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+
+        #edit-user-form {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Open Sans', Arial, sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: var(--white);
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        .btn-save {
+            background: var(--accent-color);
+            color: var(--white);
+        }
+
+        .btn-save:hover {
+            background: #27ae60;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -461,8 +598,51 @@
             <div class="loading">⏳ Cargando usuarios...</div>
         </div>
     </div>
+<!-- Modal de Edición de Usuario -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✏️ Editar Usuario</h2>
+                <span class="close-modal" onclick="closeEditModal()">&times;</span>
+            </div>
+            <form id="edit-user-form">
+                <input type="hidden" id="edit-user-id">
+                
+                <div class="form-group">
+                    <label for="edit-nombre">Nombre completo:</label>
+                    <input type="text" id="edit-nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-correo">Correo electrónico:</label>
+                    <input type="email" id="edit-correo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-rol">Rol:</label>
+                    <select id="edit-rol" required>
+                        <option value="1">👨‍🏫 Profesor</option>
+                        <option value="2">🎓 Estudiante</option>
+                        <option value="3">👑 Administrador</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-password">Nueva contraseña (opcional):</label>
+                    <input type="password" id="edit-password" placeholder="Dejar vacío para no cambiar">
+                    <small>Mínimo 6 caracteres si deseas cambiarla</small>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closeEditModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-save">💾 Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="../js/user_management.js"></script>
 </body>
 </html>
+
 
