@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
     return res.status(400).json({ error: 'Email y contraseña son requeridos' });
   }
 
-  conexion.query('SELECT * FROM usuarios WHERE correo = ?', [email], (err, resultados) => {
+  conexion.query('SELECT * FROM usuarios WHERE correo = ?', [email], async (err, resultados) => {
     if (err) {
       console.error('Error en SELECT:', err);
       return res.status(500).json({ error: 'Error en el servidor' });
