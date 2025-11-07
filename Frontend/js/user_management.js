@@ -92,22 +92,57 @@ function getRolBadge(idRol) {
 }
 
 // ========================================
-// EDITAR USUARIO
+// FUNCIONES DEL MODAL DE EDICIÓN
 // ========================================
+
+// Abrir modal con datos del usuario
 function editUser(id, nombre, correo, idRol) {
-  const nuevoNombre = prompt("Editar Nombre:", nombre);
-  if (nuevoNombre === null) return;
+  // Llenar el formulario con los datos actuales
+  document.getElementById('edit-user-id').value = id;
+  document.getElementById('edit-nombre').value = nombre;
+  document.getElementById('edit-correo').value = correo;
+  document.getElementById('edit-rol').value = idRol;
+  document.getElementById('edit-password').value = ''; // Limpiar password
 
-  const nuevoCorreo = prompt("Editar Correo:", correo);
-  if (nuevoCorreo === null) return;
-
-  const nuevoRol = prompt("Editar Rol (1=Profesor, 2=Estudiante, 3=Administrador):", idRol);
-  if (nuevoRol === null) return;
-
-  const nuevaPassword = prompt("Nueva Contraseña (dejar vacío para no cambiar):");
-
-  updateUser(id, nuevoNombre, nuevoCorreo, nuevoRol, nuevaPassword);
+  // Mostrar el modal
+  document.getElementById('edit-modal').classList.add('show');
 }
+
+// Cerrar modal
+function closeEditModal() {
+  document.getElementById('edit-modal').classList.remove('show');
+  document.getElementById('edit-user-form').reset();
+}
+
+// Cerrar modal al hacer clic fuera del contenido
+window.onclick = function(event) {
+  const modal = document.getElementById('edit-modal');
+  if (event.target === modal) {
+    closeEditModal();
+  }
+}
+
+// Manejar el envío del formulario
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('edit-user-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const id = document.getElementById('edit-user-id').value;
+      const nombre = document.getElementById('edit-nombre').value;
+      const email = document.getElementById('edit-correo').value;
+      const id_rol = document.getElementById('edit-rol').value;
+      const password = document.getElementById('edit-password').value;
+
+      // Llamar a la función de actualización
+      await updateUser(id, nombre, email, id_rol, password);
+      
+      // Cerrar el modal después de actualizar
+      closeEditModal();
+    });
+  }
+});
 
 // ========================================
 // ACTUALIZAR USUARIO EN BACKEND
@@ -118,7 +153,7 @@ async function updateUser(id, nombre, email, id_rol, password) {
   const body = {
     nombre: nombre.trim(),
     email: email.trim(),
-    id_rol: parseInt(id_rol)  //
+    id_rol: parseInt(id_rol)
   };
 
   // Solo enviar password si se proporcionó
@@ -168,7 +203,7 @@ async function performDelete(id) {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch(`${API_BASE_URL}/usuarios`, {
+    const response = await fetch(`${API_BASE_URL}/usuarios/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -180,7 +215,7 @@ async function performDelete(id) {
 
     if (response.ok) {
       alert("✅ Usuario eliminado exitosamente");
-      fetchUsers(); // Recargar la tabla
+      fetchUsers();
     } else {
       alert("❌ Error: " + (data.error || data.message));
     }
@@ -206,13 +241,13 @@ function logout() {
 // ========================================
 let allUsers = []; // Guardar todos los usuarios
 
-// Modificar fetchUsers para guardar todos los usuarios
+// Obtener usuarios del backend
 async function fetchUsers() {
   const token = localStorage.getItem("token");
   const container = document.getElementById("user-list-container");
 
   try {
-    const response = await fetch(`${API_BASE_URL}/usuarios/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/usuarios`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -224,7 +259,7 @@ async function fetchUsers() {
       throw new Error("Error al obtener usuarios");
     }
 
-    allUsers = await response.json(); // Guardar todos los usuarios
+    allUsers = await response.json();
 
     if (allUsers.length === 0) {
       container.innerHTML = '<div class="no-users">📭 No hay usuarios registrados</div>';
