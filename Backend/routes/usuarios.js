@@ -24,9 +24,13 @@ router.post(
 
     const { nombre, email, password, telefono, id_rol } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+    
+    // B2: Asegurar explícitamente que el rol por defecto sea 2 (Estudiante)
+    const rolFinal = id_rol ? parseInt(id_rol) : 2;
+    
     conexion.query(
       'INSERT INTO usuarios (nombre, correo, password, telefono, id_rol) VALUES (?, ?, ?, ?, ?)',
-      [nombre, email, hashedPassword, telefono || null, id_rol || 2],
+      [nombre, email, hashedPassword, telefono || null, rolFinal],
       (err, resultado) => {
         if (err) {
           console.error('❌ Error en query:', err);
@@ -43,7 +47,7 @@ router.post(
           nombre,
           email,
           telefono,
-          id_rol: id_rol || 2
+          id_rol: rolFinal
         });
       }
     );
@@ -70,6 +74,7 @@ router.post('/login', async (req, res) => {
 
     const usuario = resultados[0];
 
+    // B1: Usar const para variable que no se reasigna
     const passwordValida = await bcrypt.compare(password, usuario.password);
     if (!passwordValida) {
       return res.status(401).json({ error: 'Contraseña incorrecta' });
@@ -141,8 +146,8 @@ router.put('/:id', authMiddleware, (req, res) => {
   const { id } = req.params;
   const { nombre, email, password, id_rol } = req.body;
 
-  let updateFields = [];
-  let updateValues = [];
+  const updateFields = [];
+  const updateValues = [];
 
   if (nombre) { updateFields.push('nombre = ?'); updateValues.push(nombre); }
   if (email) { updateFields.push('correo = ?'); updateValues.push(email); }
