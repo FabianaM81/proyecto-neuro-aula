@@ -13,6 +13,7 @@ const chalk = require("chalk");
 const conexion = require("./db");
 const userRoutes = require('./routes/usuarios');
 const authMiddleware = require('./middleware/authMiddleware');
+const recuperacionRoutes = require('./routes/recuperacion');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,6 +24,7 @@ app.use(cors());
 
 // Rutas
 app.use('/api/usuarios', userRoutes);
+app.use('/api/recuperacion', recuperacionRoutes);
 
 // Ruta protegida para obtener datos del usuario autenticado
 app.get("/api/me", authMiddleware, (req, res) => {
