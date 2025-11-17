@@ -22,7 +22,7 @@ router.post('/solicitar', async (req, res) => {
 
   try {
     // Verificar si el usuario existe
-    const [usuarios] = await db.query('SELECT * FROM usuarios WHERE email = ?', [email]);
+    const [usuarios] = await db.query('SELECT * FROM usuarios WHERE correo = ?', [email]);
 
     if (usuarios.length === 0) {
       return res.status(404).json({ mensaje: 'No existe un usuario con ese correo' });
@@ -34,7 +34,7 @@ router.post('/solicitar', async (req, res) => {
 
     // Guardar token en la base de datos
     await db.query(
-      'UPDATE usuarios SET reset_token = ?, reset_token_exp = ? WHERE email = ?',
+      'UPDATE usuarios SET reset_token = ?, reset_token_exp = ? WHERE correo = ?',
       [token, expiracion, email]
     );
 
