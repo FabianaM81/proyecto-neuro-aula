@@ -1,11 +1,13 @@
 // auth.js - Maneja login, registro y protección de rutas
 // Configuración de la API
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://127.0.0.1:5000/api";
 // ========================================
 // MANEJO DEL LOGIN
 // ========================================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", ( ) => {
   const loginForm = document.getElementById("loginForm");
+
+console.log("¿loginForm existe?:", loginForm);
   
   if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
@@ -52,7 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } catch (error) {
         console.error("Error en la solicitud:", error);
-        alert("Hubo un problema al conectar con el servidor.");
+        let errorMessage = "Hubo un problema al conectar con el servidor.";
+        if (error instanceof TypeError && error.message === "Failed to fetch") {
+          errorMessage += "\n\nCausa probable: El servidor de Backend no está corriendo o hay un problema de CORS (Cross-Origin Resource Sharing).";
+        }
+        alert(errorMessage);
       }
     });
   }
@@ -160,7 +166,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } catch (error) {
         console.error("Error en la solicitud:", error);
-        alert("Hubo un problema al conectar con el servidor.");
+        let errorMessage = "Hubo un problema al conectar con el servidor.";
+        if (error instanceof TypeError && error.message === "Failed to fetch") {
+          errorMessage += "\n\nCausa probable: El servidor de Backend no está corriendo o hay un problema de CORS (Cross-Origin Resource Sharing).";
+        }
+        alert(errorMessage);
       }
     });
   }
