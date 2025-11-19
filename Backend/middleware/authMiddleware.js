@@ -2,6 +2,12 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = function (req, res, next) {
+
+  // ⚠ Permitir solicitudes preflight CORS
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
   const token = req.header("Authorization")?.replace("Bearer ", "");
 
   if (!token) {

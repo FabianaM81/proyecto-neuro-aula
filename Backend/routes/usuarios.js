@@ -1,195 +1,206 @@
 const express = require('express');
 const router = express.Router();
-const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const conexion = require('../db');
-const authMiddleware = require('../middleware/authMiddleware');
 
-// Ruta para crear un nuevo usuario
-router.post(
-  '/',
-  [
-    body('nombre').notEmpty().withMessage('El nombre es obligatorio'),
-    body('email').isEmail().withMessage('Debe ser un correo válido'),
-    body('password')
-      .isLength({ min: 6 })
-      .withMessage('La contraseña debe tener al menos 6 caracteres'),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errores: errors.array() });
-    }
-
-    const { nombre, email, password, telefono, id_rol } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    
-    // B2: Asegurar explícitamente que el rol por defecto sea 2 (Estudiante)
-    const rolFinal = id_rol ? parseInt(id_rol) : 2;
-    
-    conexion.query(
-      'INSERT INTO usuarios (nombre, correo, password, telefono, id_rol) VALUES (?, ?, ?, ?, ?)',
-      [nombre, email, hashedPassword, telefono || null, rolFinal],
-      (err, resultado) => {
-        if (err) {
-          console.error('❌ Error en query:', err);
-          if (err.code === 'ER_DUP_ENTRY') {
-            console.log('⚠️ Duplicado detectado (correo o teléfono existente)');
-            return res.status(400).json({ error: 'El correo o el teléfono ya están registrados' });
-          }
-          return res.status(500).json({ error: 'Error interno del servidor' });
-        }
-      
-        res.status(201).json({
-          message: 'Usuario creado exitosamente',
-          id: resultado.insertId,
-          nombre,
-          email,
-          telefono,
-          id_rol: rolFinal
-        });
-      }
-    );
-  }
-);
-
-// Ruta para el login de usuario
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  console.log('📥 LOGIN REQUEST RECIBIDO');
+  console.log('Body:', req.body);
 
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Email y contraseña son requeridos' });
-  }
+  try {
+    const { email, password } = req.body;
 
-  conexion.query('SELECT * FROM usuarios WHERE correo = ?', [email], async (err, resultados) => {
-    if (err) {
-      console.error('Error en SELECT:', err);
-      return res.status(500).json({ error: 'Error en el servidor' });
+    if (!email || !password) {
+      console.log('❌ Campos vacíos');
+      return res.status(400).json({ 
+        error: 'Email y contraseña son requeridos' 
+      });
     }
 
-    if (resultados.length === 0) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+    console.log('🔍 Buscando usuario:', email);
+
+    const query = 'SELECT * FROM usuarios WHERE correo = ?';
+    const [results] = await conexion.query(query, [email]);
+    
+    console.log('📊 Resultados encontrados:', results.length);
+
+    if (results.length === 0) {
+      console.log('❌ Usuario no encontrado');
+      return res.status(401).json({ 
+        error: 'Credenciales inválidas' 
+      });
     }
 
-    const usuario = resultados[0];
+    const usuario = results[0];
+    console.log('✅ Usuario encontrado:', usuario.nombre);
 
-    // B1: Usar const para variable que no se reasigna
-    const passwordValida = await bcrypt.compare(password, usuario.password);
-    if (!passwordValida) {
-      return res.status(401).json({ error: 'Contraseña incorrecta' });
+    const passwordMatch = await bcrypt.compare(password, usuario.password);
+    
+    if (!passwordMatch) {
+      console.log('❌ Contraseña incorrecta');
+      return res.status(401).json({ 
+        error: 'Credenciales inválidas' 
+      });
     }
+
+    console.log('✅ Contraseña correcta');
 
     const token = jwt.sign(
-      { id: usuario.id, correo: usuario.correo },
+      { 
+        id: usuario.id, 
+        correo: usuario.correo, 
+        id_rol: usuario.id_rol 
+      },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { expiresIn: '24h' }
     );
 
-    res.json({
-      message: 'Inicio de sesión exitoso',
-      token,
-      usuario: { id: usuario.id, nombre: usuario.nombre, correo: usuario.correo, id_rol: usuario.id_rol },
+    console.log('✅ Token generado');
+
+    return res.status(200).json({
+      message: 'Login exitoso',
+      token: token,
+      usuario: {
+        id: usuario.id,
+        nombre: usuario.nombre,
+        email: usuario.correo,
+        id_rol: usuario.id_rol
+      }
     });
-  });
-});
 
-// Ruta protegida para obtener datos del usuario autenticado
-router.get('/me', authMiddleware, (req, res) => {
-  conexion.query(
-    'SELECT id, nombre, correo, id_rol FROM usuarios WHERE id = ?',
-    [req.user.id],
-    (err, resultados) => {
-      if (err) {
-        console.error('Error al obtener datos del usuario:', err);
-        return res.status(500).json({ error: 'Error interno del servidor' });
-      }
-
-      if (resultados.length === 0) {
-        return res.status(404).json({ error: 'Usuario no encontrado' });
-      }
-
-      res.json(resultados[0]);
-    }
-  );
-});
-
-// Obtener todos los usuarios (protegida)
-router.get('/', authMiddleware, (req, res) => {
-  conexion.query('SELECT id, nombre, correo, id_rol FROM usuarios', (err, resultados) => {
-    if (err) {
-      console.error('Error al obtener usuarios:', err);
-      return res.status(500).json({ error: 'Error en la base de datos' });
-    }
-    res.json(resultados);
-  });
-});
-
-// Obtener usuario por ID (protegida)
-router.get('/:id', authMiddleware, (req, res) => {
-  const { id } = req.params;
-
-  conexion.query('SELECT id, nombre, correo, id_rol FROM usuarios WHERE id = ?', [id], (err, resultado) => {
-    if (err) {
-      console.error('Error en SELECT:', err);
-      return res.status(500).json({ error: 'Error interno del servidor' });
-    }
-    if (resultado.length === 0) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
-    }
-    res.json(resultado[0]);
-  });
-});
-
-// Actualizar usuario (protegida)
-router.put('/:id', authMiddleware, (req, res) => {
-  const { id } = req.params;
-  const { nombre, email, password, id_rol } = req.body;
-
-  const updateFields = [];
-  const updateValues = [];
-
-  if (nombre) { updateFields.push('nombre = ?'); updateValues.push(nombre); }
-  if (email) { updateFields.push('correo = ?'); updateValues.push(email); }
-  if (password) { 
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    updateFields.push('password = ?'); updateValues.push(hashedPassword); 
+  } catch (error) {
+    console.error('❌ Error inesperado:', error);
+    return res.status(500).json({ 
+      error: 'Error en el servidor',
+      details: error.message 
+    });
   }
-  if (id_rol) { updateFields.push('id_rol = ?'); updateValues.push(id_rol); }
-
-  if (updateFields.length === 0) {
-    return res.status(400).json({ message: 'No hay campos para actualizar' });
-  }
-
-  const query = `UPDATE usuarios SET ${updateFields.join(', ')} WHERE id = ?`;
-  updateValues.push(id);
-
-  conexion.query(query, updateValues, (err, resultado) => {
-    if (err) {
-      console.error('Error en UPDATE:', err);
-      return res.status(500).json({ error: 'Error interno del servidor' });
-    }
-    if (resultado.affectedRows === 0) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
-    }
-    res.json({ message: 'Usuario actualizado exitosamente' });
-  });
 });
 
-// Eliminar usuario (protegida)
-router.delete('/:id', authMiddleware, (req, res) => {
-  const { id } = req.params;
+router.post('/', async (req, res) => {
+  console.log('📥 REGISTRO REQUEST RECIBIDO');
+  console.log('Body:', req.body);
 
-  conexion.query('DELETE FROM usuarios WHERE id = ?', [id], (err, resultado) => {
-    if (err) {
-      console.error('Error en DELETE:', err);
-      return res.status(500).json({ error: 'Error interno del servidor' });
+  try {
+    const { nombre, email, password, telefono, id_rol } = req.body;
+
+    if (!nombre || !email || !password) {
+      return res.status(400).json({ 
+        error: 'Nombre, email y contraseña son requeridos' 
+      });
     }
-    if (resultado.affectedRows === 0) {
+
+    if (password.length < 6) {
+      return res.status(400).json({ 
+        error: 'La contraseña debe tener al menos 6 caracteres' 
+      });
+    }
+
+    const checkQuery = 'SELECT * FROM usuarios WHERE correo = ?';
+    const [checkResults] = await conexion.query(checkQuery, [email]);
+
+    if (checkResults.length > 0) {
+      return res.status(400).json({ 
+        error: 'Este correo ya está registrado' 
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const insertQuery = 'INSERT INTO usuarios (nombre, correo, password, telefono, id_rol) VALUES (?, ?, ?, ?, ?)';
+    const [result] = await conexion.query(insertQuery, [nombre, email, hashedPassword, telefono || null, id_rol || 2]);
+
+    console.log('✅ Usuario creado exitosamente');
+    
+    return res.status(201).json({
+      message: 'Usuario registrado exitosamente',
+      usuario: {
+        id: result.insertId,
+        nombre,
+        email,
+        id_rol: id_rol || 2
+      }
+    });
+
+  } catch (error) {
+    console.error('❌ Error en registro:', error);
+    return res.status(500).json({ 
+      error: 'Error en el servidor',
+      details: error.message 
+    });
+  }
+});
+
+router.get('/', async (req, res) => {
+  console.log('📥 GET todos los usuarios');
+
+  try {
+    const query = 'SELECT u.id, u.nombre, u.correo, u.telefono, u.id_rol, r.nombre as nombre_rol FROM usuarios u LEFT JOIN roles r ON u.id_rol = r.id ORDER BY u.id DESC';
+    const [results] = await conexion.query(query);
+
+    console.log('✅ Usuarios obtenidos:', results.length);
+    return res.json(results);
+
+  } catch (error) {
+    console.error('❌ Error obteniendo usuarios:', error);
+    return res.status(500).json({ error: 'Error al obtener usuarios' });
+  }
+});
+
+router.put('/:id', async (req, res) => {
+  console.log('📥 UPDATE usuario:', req.params.id);
+
+  try {
+    const { id } = req.params;
+    const { nombre, email, telefono, id_rol, password } = req.body;
+
+    let query = 'UPDATE usuarios SET nombre = ?, correo = ?, telefono = ?, id_rol = ?';
+    let params = [nombre, email, telefono || null, id_rol];
+
+    if (password && password.trim() !== '') {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      query += ', password = ?';
+      params.push(hashedPassword);
+    }
+
+    query += ' WHERE id = ?';
+    params.push(id);
+
+    const [result] = await conexion.query(query, params);
+
+    if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
-    res.json({ message: 'Usuario eliminado exitosamente' });
-  });
+
+    console.log('✅ Usuario actualizado');
+    return res.json({ message: 'Usuario actualizado exitosamente' });
+
+  } catch (error) {
+    console.error('❌ Error:', error);
+    return res.status(500).json({ error: 'Error en el servidor' });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  console.log('📥 DELETE usuario:', req.params.id);
+
+  try {
+    const { id } = req.params;
+    const query = 'DELETE FROM usuarios WHERE id = ?';
+    const [result] = await conexion.query(query, [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    console.log('✅ Usuario eliminado');
+    return res.json({ message: 'Usuario eliminado exitosamente' });
+
+  } catch (error) {
+    console.error('❌ Error eliminando usuario:', error);
+    return res.status(500).json({ error: 'Error al eliminar usuario' });
+  }
 });
 
 module.exports = router;
